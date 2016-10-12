@@ -77,4 +77,5 @@ charts:
   -
     question: 11. Zuora response performance SELECT PAYMENT METHOD?
     name: Select CC or DD
-    query: "@concat(page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h),page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h))"
+    query: "@concat(page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h),page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h)))"
+    
