@@ -71,19 +71,10 @@ charts:
   ->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)
   ->filter(context.offer.name)->relTime(this_4_weeks)->print(BarChart)"
   -
-    question: 10. Buy now CC Zuora performance?
-    name: Submit Credit Card 
-    query: "page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=submitCreditCard)->relTime(previous_48_hours)->interval(h)"
+    question: 10. Zuora response performance BUY NOW ?
+    name: Submit CC and DD 
+    query: "@concat(page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=submitCreditCard)->relTime(previous_48_hours),page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=submitDirectDebit)->relTime(previous_48_hours))->interval(h)->relabel(_headings,CC milliseconds,DD milliseconds)
   -
-    question: 11. Buy now DD Zuora performance?
-    name: Submit Direct Debit
-    query: "page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=submitDirectDebit)->relTime(previous_48_hours)->interval(h)"
-  -
-    question: 12. Change CC Zuora performance?
-    name: Change CC
-    query: "page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h)"
-  -
-    question: 13. Change DD Zuora performance?
-    name: Change DD
-    query: "page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h)"
-    
+    question: 11. Zuora response performance SELECT PAYMENT METHOD?
+    name: Select CC or DD
+    query: "@concat(page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h),page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h))"
