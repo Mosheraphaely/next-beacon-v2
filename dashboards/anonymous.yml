@@ -65,7 +65,7 @@ charts:
   -
     question: 10. Anon users by Device Type
     name: Device Type
-    query: page:view->count(device.spoorId)->group(device.primaryHardwareType)->filter(!user.uuid)->filter(device.primaryHardwareType)->relTime(this_1_months)->print(PieChart)
+    query: page:view->count(device.spoorId)->group(device.primaryHardwareType)->filter(!user.uuid)->filter(device.primaryHardwareType)->relTime(this_30_days)->print(PieChart)
   -
     question: 11. Interactions on Lionel Slider
     name: Lionel Slider
