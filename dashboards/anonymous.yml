@@ -65,13 +65,13 @@ charts:
   -
     question: 10. Anon users by Device Type
     name: Device Type
-    query: page:view->count(device.spoorId)->group(device.primaryHardwareType)->filter(!user.uuid)->filter(device.primaryHardwareType)->relTime(this_30_days)->print(PieChart)
+    query: "page:view->count(device.spoorId)->group(device.primaryHardwareType)->filter(!user.uuid)->filter(device.primaryHardwareType)->relTime(this_30_days)->print(PieChart)"
   -
-    question: 11. Interactions on Lionel Slider
+    question: 11. Interactions % on Lionel Slider
     name: Lionel Slider
-    query: cta:click->count()->filter(click.dataTrackablePath~subscription-offer-prompt | subscribe)->relTime(this_14_days)->interval(d)->filter(user.geo.isFinancialTimesOffice=false)
+    query: "@concat(@ratio(cta:click->count()->filter(click.dataTrackablePath~subscription-offer-prompt | subscribe),message:show->count()),@ratio(cta:click->count()->filter(click.dataTrackablePath~subscription-offer-prompt | close),message:show->count()))->filter(user.geo.isFinancialTimesOffice=false)->relabel(_headings,subscribe,close)->interval(d)"
   -
     question: 12. Interactions on Marketing Promo
     name: Marketing Promo
-    query: cta:click->count(device.spoorId)->filter(context.domPath~marketing-promo)->relTime(this_6_months)->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->interval(month)
+    query: "@sum(cta:click->count(device.spoorId)->filter(context.domPath~marketing-promo),cta:click->count(device.spoorId)->filter(click.dataTrackablePath~marketing-promo))->relTime(this_6_months)->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->interval(month)"
     
