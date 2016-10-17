@@ -141,3 +141,48 @@ charts:
               ->filter(user.subscriptions.isStaff!=true)
               "
     colspan: 12 L6
+  -
+      question: "How many clicks on Tips across Streams, Homepage and Article page"
+      name: dashboard/onboarding/tip-clicks
+      query: "@concat(
+                cta:click
+                  ->count()
+                  ->group(page.location.type),
+                cta:click
+                  ->count()
+              )
+                ->filter(click.dataTrackablePath~ tour-tip)
+                ->filter(click.dataTrackablePath~ cta)
+                ->filter(click.dataTrackablePath!~tour-page)
+                ->filter(page.location.type)
+                ->filter(page.location.type!=unknown)
+                "
+      colspan: 12 L6
+  -
+      question: "How many dismisses of Tips across Streams, Homepage and Article page"
+      name: dashboard/onboarding/tip-dismisses
+      query: "@concat(
+                cta:click
+                  ->count()
+                  ->group(page.location.type),
+                cta:click
+                  ->count()
+              )
+                ->filter(click.dataTrackablePath~ tour-tip)
+                ->filter(click.dataTrackablePath~ dismiss)
+                ->filter(click.dataTrackablePath!~tour-page)
+                ->filter(page.location.type)
+                ->filter(page.location.type!=unknown)
+                "
+      colspan: 12 L6
+  -
+      question: "Total visits to Tips page by cohort (anon/subscriber)"
+      name: dashboard/onboarding/tour-page-visits
+      query: "page:view
+                ->count()
+                ->filter(page.location.pathname=/tour)
+                ->group(user.subscription)
+                ->print(Table)
+                "
+      interval: false
+      colspan: 12 L6
