@@ -1,19 +1,36 @@
 # Note: Any strings begining with @ or % must be wrapped in quote marks
 ---
 id: nss
-title: NSS (Next Satisfation Score)
+title: NSS
 isPrimary: true
 charts:
+  -
+    question: "How many promoters and detractors do we have each day?"
+    name: cohorts/daily
+    query: "@concat(
+  feedback:submit
+    ->filter(context.nps>8),
+  feedback:submit
+    ->filter(context.nps?7,8),
+  feedback:submit
+    ->filter(context.nps<7)
+)
+  ->count()
+  ->relabel(_headings,Promoters,Passives,Detractors)"
   -
     question: "How many promoters and detractors do we have each week?"
     name: cohorts
     query: "@concat(
-      feedback:submit->count()->filter(context.nps>8),
-      feedback:submit->count()->filter(context.nps?7,8),
-      feedback:submit->count()->filter(context.nps<7)
-    )
-      ->relabel(_headings,Promoters,Passives,Detractors)"
-    timeframe: previous_6_months
+  feedback:submit
+    ->filter(context.nps>8),
+  feedback:submit
+    ->filter(context.nps?7,8),
+  feedback:submit
+    ->filter(context.nps<7)
+)
+  ->count()
+  ->relabel(_headings,Promoters,Passives,Detractors)"
+    timeframe: this_24_weeks
     interval: w
   -
     question: "What's the weekly recommendation scores trend?"
@@ -25,5 +42,5 @@ charts:
       feedback:submit->percentile(context.nps,75)
     )
       ->relabel(_headings,Average,Median,25th percentile,75th percentile)"
-    timeframe: previous_6_months
+    timeframe: this_24_weeks
     interval: w
