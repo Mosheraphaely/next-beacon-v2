@@ -63,9 +63,10 @@ charts:
     printer: PieChart
     interval: false
   -
-    question: 10. Anon users by Device Type
+    question: 10. Share of Anon users by Device Type
     name: Device Type Share
-    query: "page:view->count(device.spoorId)->filter(context.product=next)->group(device.primaryHardwareType)->filter(!user.uuid)->filter(device.primaryHardwareType)->relTime(this_30_days)->print(PieChart)"
+    query: "page:view->count(device.spoorId)->filter(context.product=next)->group(device.primaryHardwareType)->filter(!user.uuid)->filter(device.primaryHardwareType)->relTime(this_30_days)"
+    printer: PieChart
   -
     question: 11. Interactions % on Lionel Slider
     name: Lionel Slider
