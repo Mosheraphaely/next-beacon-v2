@@ -96,9 +96,8 @@ export function getRecordings ({el, queryStr, messagesEl, userTimeframe, configu
 
 	return new Promise((resolve, reject) => {
 		try {
-			console.log('running query:');
+			console.log('running query:', query); // eslint-disable-line no-console
 
-			console.log(query);
 			updateMessages(messagesEl, 'Keen IO');
 			keen.run(query, function (err, response){
 				if (err) {
@@ -113,7 +112,7 @@ export function getRecordings ({el, queryStr, messagesEl, userTimeframe, configu
 		}
 	})
 	.then((result) => {
-		console.log('Keen extraction took', ((new Date()).getTime() - start)/1000 + 's');
+		console.log('Keen extraction took', ((new Date()).getTime() - start)/1000 + 's'); // eslint-disable-line no-console
 
 		const spoorIds = result.map(function (item) {
 			return item.device.spoorId;
@@ -153,8 +152,7 @@ export function getRecordings ({el, queryStr, messagesEl, userTimeframe, configu
 			body.entry = entry;
 		}
 
-		console.log('calling mouseflow api with:')
-		console.log(body)
+		console.log('calling mouseflow api with: ', body); // eslint-disable-line no-console
 
 		clearMessages(messagesEl);
 		updateMessages(messagesEl, 'Mouseflow');

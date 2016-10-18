@@ -1,6 +1,6 @@
 /* global google, isExtraction */
 
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 import './beacon-tracker';
 import './data/kq-extensions';
@@ -12,7 +12,7 @@ window.timer = {
 		this.startDate = new Date();
 	},
 	log: function (name) {
-		console.log(name, new Date() - this.startDate);
+		console.log(name, new Date() - this.startDate); // eslint-disable-line no-console
 	}
 }
 

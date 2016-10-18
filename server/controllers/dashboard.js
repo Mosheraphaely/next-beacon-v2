@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 // Render a group of charts in a dashboard
 const aliases = require('../middleware/aliases');
@@ -8,7 +8,7 @@ function getDashboardTitle (req) {
 	return title.charAt(0).toUpperCase() + title.slice(1);
 }
 
-module.exports = function(req, res) {
+module.exports = function (req, res) {
 	const dashboardPath = req.params[0];
 	const dashboardName = dashboardPath.split('/')[0];
 

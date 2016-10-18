@@ -7,6 +7,6 @@ module.exports = function (req, res) {
 		}).
 		catch((err) => {
 			//TODO
-			console.log('error fetching from mouseflow', err);
+			console.log('error fetching from mouseflow', err); // eslint-disable-line no-console
 		})
 };

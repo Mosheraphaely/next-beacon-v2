@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 const aliases = require('../middleware/aliases');
 const natural = require('natural');

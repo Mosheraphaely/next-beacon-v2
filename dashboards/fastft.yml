@@ -7,39 +7,39 @@ charts:
   -
     question: How many views is the fastFT Stream Page getting?
     name: views
-    query: "page:view->count()->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)"
+    query: "page:view->count()->filter(context.product=next)->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)"
     datalabel: Visits to the fastFT Stream Page
   -
     question: Where are people reading fastFT from?
     name: views
-    query: "page:view->count()->filter(content.metadata.capi3.annotations~NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->group(page.location.type)"
+    query: "page:view->count()->filter(context.product=next)->filter(content.metadata.capi3.annotations~NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->group(page.location.type)"
     datalabel: Views of fastFT content by location
   -
     question: What's the Percentage of articles expanded or opened on fastFT?
     name: actions
-    query: "@concat(@pct(cta:click->count()->filter(click.dataTrackablePath~headline),page:view->count()->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)),@pct(cta:click->count()->filter(click.dataTrackablePath~article-Show more),page:view->count()->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)))->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->relTime(previous_14_days)->interval(d)"
+    query: "@concat(@pct(cta:click->count()->filter(context.product=next)->filter(click.dataTrackablePath~headline),page:view->count()->filter(context.product=next)->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)),@pct(cta:click->count()->filter(context.product=next)->filter(click.dataTrackablePath~article-Show more),page:view->count()->filter(context.product=next)->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)))->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->relTime(previous_14_days)"
     datalabel: Clicks or Expands
   -
     question: How long are people spending on fastFT?
     name: dwelltime
-    query: "@sum(page:interaction->avg(context.context.attention.total),page:interaction->avg(context.attention.total))->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->relTime(previous_14_days)->interval(d)->plotThreshold(125,FT Benchmark)"
+    query: "@sum(page:interaction->avg(context.context.attention.total),page:interaction->avg(context.attention.total))->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->relTime(previous_14_days)->plotThreshold(125,FT Benchmark)"
     datalabel: Seconds on page
   -
     question: How many interactions are there with filters?
     name: filters
-    query: "page:add-filter->group(context.type)->count()->relTime(this_14_days)->interval(d)"
+    query: "page:add-filter->group(context.type)->count()->filter(context.product=next)"
     datalabel: Filtered views as % of total
   -
     question: What devices are fastFT readers using?
     name: usersbydevice
-    query: "page:view->count(user.uuid)->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->group(device.primaryHardwareType)->tidy()"
+    query: "page:view->count(user.uuid)->filter(context.product=next)->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->group(device.primaryHardwareType)->tidy()"
     datalabel: Users by device
     isStacked: true
     printer: AreaChart
   -
     question: Where are fastFT readers coming from?
     name: internalreferrers
-    query: "page:view->count()->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->group(page.referrer.type)->tidy(page.referrer.websiteType)"
+    query: "page:view->count()->filter(context.product=next)->filter(page.location.streamId=NTlhNzEyMzMtZjBjZi00Y2U1LTg0ODUtZWVjNmEyYmU1NzQ2-QnJhbmRz)->group(page.referrer.type)->tidy(page.referrer.websiteType)"
     datalabel: Number of referrals
     isStacked: true
     printer: AreaChart

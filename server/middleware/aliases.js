@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 let aliases = [];
 const Poller = require('ft-poller');

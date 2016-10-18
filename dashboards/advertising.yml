@@ -7,59 +7,59 @@ charts:
   -
     question: How many page views are adblocked
     name: sourcepoint-pvs
-    query: "@pct(ads:blocked->count()->group(context.context.provider)->relTime(this_14_days)->interval(d),page:view->count()->filter(device.spoorId>0)->filter(device.spoorId<1)->relTime(this_14_days)->interval(d))"
+    query: "@pct(ads:blocked->count()->filter(context.product=next)->group(context.context.provider),page:view->count()->filter(context.product=next)->filter(device.spoorId>0)->filter(device.spoorId<1))"
     timeframe: this_14_days
     datalabel: Desktop PVs adblocked
   -
     question: How many page views are adblocked by browser
     name: sourcepoint-pvs-browser
-    query: "@pct(ads:blocked->count()->group(device.browserName)->filter(context.context.provider=sourcepoint),page:view->count()->filter(device.spoorId>0)->filter(device.spoorId<1))"
+    query: "@pct(ads:blocked->count()->filter(context.product=next)->group(device.browserName)->filter(context.context.provider=sourcepoint),page:view->count()->filter(context.product=next)->filter(device.spoorId>0)->filter(device.spoorId<1))"
     printer: ColumnChart
     timeframe: this_14_days
     datalabel: Desktop PVs adblocked by Browser
   -
     question: What percentage of users are adblocking
     name: sourcepoint-users
-    query: "@pct(ads:blocked->count(device.spoorId)->group(context.context.provider),page:view->count(device.spoorId)->filter(device.spoorId>0)->filter(device.spoorId<1))"
+    query: "@pct(ads:blocked->count(device.spoorId)->filter(context.product=next)->group(context.context.provider),page:view->count(device.spoorId)->filter(context.product=next)->filter(device.spoorId>0)->filter(device.spoorId<1))"
 
   -
     question: How long before the first ad call is complete by Browser
     name: first-ad-load-browser
-    query: "ads:first-load->median(context.timings.marks.firstAdLoaded)->group(device.browserName)->filter(context.timings.marks.firstAdLoaded<100000)->filter(device.primaryHardwareType=Desktop)->filter(device.browserName)->relTime(this_14_days)->divide(1000)"
+    query: "ads:first-load->median(context.timings.marks.firstAdLoaded)->group(device.browserName)->filter(context.timings.marks.firstAdLoaded<100000)->filter(device.primaryHardwareType=Desktop)->filter(device.browserName)->divide(1000)"
     printer: Table
 
   -
     question: How long before the first ad call is complete on Desktops?
     name: first-ad-load-desktop
-    query: "ads:first-load->median(context.timings.marks.firstAdLoaded)->filter(context.timings.marks.firstAdLoaded<100000)->filter(device.primaryHardwareType=Desktop)->relTime(this_14_days)->interval(h)->divide(1000)"
+    query: "ads:first-load->median(context.timings.marks.firstAdLoaded)->filter(context.timings.marks.firstAdLoaded<100000)->filter(device.primaryHardwareType=Desktop)->interval(h)->divide(1000)"
 
   -
     question: How long does the DOM, the first ad call and the first ad iframe load take to complete on Desktops?
     name: ad-iframe-and-first-ad-load-after-dom-desktop
-    query: "@concat(page:load-timing->median(context.timings.offsets.navigationStart.domContentLoadedEventStart)->relTime(this_14_days)->interval(d),ads:first-load->median(context.timings.marks.firstAdLoaded)->filter(context.timings.marks.firstAdLoaded<100000)->relTime(this_14_days)->interval(d),ads:first-load->median(context.timings.marks.adIframeLoaded)->relTime(this_14_days)->interval(d))->filter(device.primaryHardwareType=Desktop)->relTime(this_14_days)->interval(d)->divide(1000)->relabel(_headings,DOM Loaded,firstAdLoaded,adIframeLoaded)"
-  
+    query: "@concat(page:load-timing->median(context.timings.offsets.navigationStart.domContentLoadedEventStart),ads:first-load->median(context.timings.marks.firstAdLoaded)->filter(context.timings.marks.firstAdLoaded<100000),ads:first-load->median(context.timings.marks.adIframeLoaded))->filter(device.primaryHardwareType=Desktop)->divide(1000)->relabel(_headings,DOM Loaded,firstAdLoaded,adIframeLoaded)"
+
   -
     question: After the DOM is loaded, how long before the first ad call is complete by the Browser?
     name: first-ad-load-and-dom
-    query: "ads:first-load->median(context.timings.offsets.firstAdLoaded.domContentLoadedEventEnd)->filter(device.primaryHardwareType=Desktop)->relTime(this_14_days)->interval(d)->divide(1000)"
+    query: "ads:first-load->median(context.timings.offsets.firstAdLoaded.domContentLoadedEventEnd)->filter(device.primaryHardwareType=Desktop)->divide(1000)"
 
   -
     question: After the first ad call is complete, how long does it take for the ad iframe to load?
     name: ad-iframe-load-speed
-    query: "@sum(ads:first-load->median(context.timings.marks.adIframeLoaded),ads:first-load->median(context.timings.marks.firstAdLoaded)->multiply(-1))->filter(device.primaryHardwareType=Desktop)->relTime(this_14_days)->interval(d)->divide(1000)"
+    query: "@sum(ads:first-load->median(context.timings.marks.adIframeLoaded),ads:first-load->median(context.timings.marks.firstAdLoaded)->multiply(-1))->filter(device.primaryHardwareType=Desktop)->divide(1000)"
 
 
   -
     question: How long do the different ad sizes take to load?
     name: ad-iframe-load-sizes
-    query: "@sum(ads:first-load->median(context.timings.marks.adIframeLoaded)->group(context.creative.size)->filter(context.creative.size)->relTime(this_14_days),ads:first-load->median(context.timings.marks.firstAdLoaded)->group(context.creative.size)->relTime(this_14_days)->multiply(-1))->filter(device.primaryHardwareType=Desktop)->filter(context.creative.size!=\"false\")->relTime(this_14_days)->divide(1000)->tidy()"
+    query: "@sum(ads:first-load->median(context.timings.marks.adIframeLoaded)->group(context.creative.size)->filter(context.creative.size),ads:first-load->median(context.timings.marks.firstAdLoaded)->group(context.creative.size)->multiply(-1))->filter(device.primaryHardwareType=Desktop)->filter(context.creative.size!=\"false\")->divide(1000)->tidy()"
     printer: BarChart
   -
     question: How long do the different ad sizes take to load? (by day)
     name: ad-iframe-load-by-size-daily
-    query: "@sum(ads:first-load->median(context.timings.marks.adIframeLoaded)->group(context.creative.size)->filter(context.creative.size)->relTime(this_14_days)->interval(d),ads:first-load->median(context.timings.marks.firstAdLoaded)->group(context.creative.size)->relTime(this_14_days)->interval(d)->multiply(-1))->filter(device.primaryHardwareType=Desktop)->filter(context.creative.size!=\"false\")->relTime(this_14_days)->interval(d)->divide(1000)->tidy()"
-    
+    query: "@sum(ads:first-load->median(context.timings.marks.adIframeLoaded)->group(context.creative.size)->filter(context.creative.size),ads:first-load->median(context.timings.marks.firstAdLoaded)->group(context.creative.size)->multiply(-1))->filter(device.primaryHardwareType=Desktop)->filter(context.creative.size!=\"false\")->divide(1000)->tidy()"
+
   -
     question: How long does the ad iframe take to load by device
     name: ad-iframe-load-by-device
-    query: "@sum(ads:first-load->median(context.timings.marks.adIframeLoaded)->relTime(this_14_days)->interval(d),ads:first-load->median(context.timings.marks.firstAdLoaded)->relTime(this_14_days)->interval(d)->multiply(-1))->group(device.primaryHardwareType)->filter(context.creative.size!=\"false\")->relTime(this_14_days)->interval(d)->divide(1000)->tidy()"
+    query: "@sum(ads:first-load->median(context.timings.marks.adIframeLoaded),ads:first-load->median(context.timings.marks.firstAdLoaded)->multiply(-1))->group(device.primaryHardwareType)->filter(context.creative.size!=\"false\")->divide(1000)->tidy()"

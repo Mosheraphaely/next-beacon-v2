@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 require('./slack/beacon-babbler.js')
 
@@ -8,7 +8,7 @@ const Botkit = require('botkit');
 
 const controller = Botkit.slackbot();
 
-// "Keen Bot" is a slack bot (https://financialtimes.slack.com/messages/@keenbot)
+// 'Keen Bot' is a slack bot (https://financialtimes.slack.com/messages/@keenbot)
 const bot = controller.spawn({
 	token: process.env.SLACK_KEENBOT_TOKEN
 });
@@ -46,16 +46,16 @@ KeenQuery.definePrinter('keenBot', function () {
 const generateResponse = (results) => {
 	return {
 		attachments: [{
-			fallback: "Complete",
+			fallback: 'Complete',
 			title: results.question,
-			color: "#7CD197",
+			color: '#7CD197',
 			fields: results
 		}]
 	}
 };
 
 
-bot.startRTM(function(err) {
+bot.startRTM(function (err) {
 	if (err) {
 		throw new Error('Could not connect to Slack');
 	}
@@ -64,7 +64,7 @@ bot.startRTM(function(err) {
 const convertToQuery = (message) => message.replace(/\&gt;/g, '>')
 	.replace(/->print\(.*\)$/, '') + '->print(\'keenBot\')';
 
-controller.hears(['run (.*)'],["direct_message","direct_mention","mention"], (bot, message) => {
+controller.hears(['run (.*)'],['direct_message','direct_mention','mention'], (bot, message) => {
 	const query = convertToQuery(message.match[1]);
 	KeenQuery.execute(query)
 	.then(results => {
@@ -90,7 +90,7 @@ const askQuestion = (query, bot, message) => {
 }
 
 
-controller.hears(['(.*)'],["direct_message","direct_mention","mention"], (bot, message) => {
+controller.hears(['(.*)'],['direct_message','direct_mention','mention'], (bot, message) => {
 	const q = message.match[0].trim();
 	const queries = processBotCommand(q);
 
@@ -104,8 +104,8 @@ controller.hears(['(.*)'],["direct_message","direct_mention","mention"], (bot, m
 		});
 	})
 	.catch((err) => {
-		bot.reply(message, "Sorry, I couldn't answer your question :(: ```" + err + "```");
-		console.error(err);
+		bot.reply(message, 'Sorry, I couldn\'t answer your question :(: ```' + err + '```');
+		console.error(err); // eslint-disable-line no-console
 	});
 
 });

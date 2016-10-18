@@ -15,7 +15,7 @@ charts:
   feedback:submit
     ->filter(context.nps<7)
 )
-  ->count()
+  ->count()->filter(context.product=next)
   ->relabel(_headings,Promoters,Passives,Detractors)"
   -
     question: "How many promoters and detractors do we have each week?"
@@ -28,7 +28,7 @@ charts:
   feedback:submit
     ->filter(context.nps<7)
 )
-  ->count()
+  ->count()->filter(context.product=next)
   ->relabel(_headings,Promoters,Passives,Detractors)"
     timeframe: this_24_weeks
     interval: w

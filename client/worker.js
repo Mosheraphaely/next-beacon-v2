@@ -1,8 +1,8 @@
 /* globals self, caches, clients */
-'use strict';
+'use strict'; //eslint-disable-line strict
 const cacheName = 'beacon-v2';
 
-function putInCache(request, res) {
+function putInCache (request, res) {
 	const copy = res.clone();
 	return caches.open(cacheName)
 		.then(function (cache) {
@@ -14,7 +14,7 @@ self.addEventListener('install', function () {
 	// console.log('install')
 });
 
-self.addEventListener('activate', function() {
+self.addEventListener('activate', function () {
 	// console.log('activate')
 	if (self.clients && clients.claim) {
 		clients.claim();
@@ -22,7 +22,7 @@ self.addEventListener('activate', function() {
 });
 
 self.addEventListener('fetch', function (event) {
-	var request = event.request;
+	const request = event.request;
 	// console.log('real fetch', request.url)
 	if (/www\.gstatic\.com\//.test(request.url)) {
 		// console.log('trying to find in cache', request.url)

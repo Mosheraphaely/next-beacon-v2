@@ -1,6 +1,6 @@
 /* global $, activeEventCollection, KEEN_PROJECT_ID, KEEN_READ_KEY */
 
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 import keenIO from 'keen.io';
 import flat from 'flat';
@@ -11,7 +11,7 @@ const outputElement = document.querySelector('.extract__output');
 const tableHead = outputElement.querySelector('thead tr');
 const tableBody = outputElement.querySelector('tbody');
 
-window.outputUpdate = function(value) {
+window.outputUpdate = function (value) {
 	document.querySelector('.extract__numberOfEvents').value = value;
 	const submitBtn = document.querySelector('.extract__submit');
 
@@ -20,19 +20,19 @@ window.outputUpdate = function(value) {
 	}
 
 	if (value < 1000) {
-		submitBtn.innerHTML = "Click here to extract data"
+		submitBtn.innerHTML = 'Click here to extract data'
 	} else if (value < 3000) {
-		submitBtn.innerHTML = "This'll take a while"
+		submitBtn.innerHTML = 'This\'ll take a while'
 	} else if (value < 6000) {
-		submitBtn.innerHTML = "Might as well go put the kettle on"
+		submitBtn.innerHTML = 'Might as well go put the kettle on'
 	} else if (value < 10000) {
-		submitBtn.innerHTML = "It should be done by Christmas"
+		submitBtn.innerHTML = 'It should be done by Christmas'
 	} else {
-		submitBtn.innerHTML = "Warning: This may crash your browser"
+		submitBtn.innerHTML = 'Warning: This may crash your browser'
 	}
 }
 
-function getSelectedProperties(){
+function getSelectedProperties () {
 	let selectedProperties = [].filter.call(document.querySelectorAll('.extract__properties input[type=checkbox]'), input_element => {
 		return input_element.checked === true;
 	}).map(input_element => {
@@ -41,16 +41,16 @@ function getSelectedProperties(){
 	return selectedProperties;
 }
 
-function updateHistory() {
+function updateHistory () {
 	let pathnameSlugs = location.pathname.split('/');
 	pathnameSlugs[3] = activeEventCollection;
 
 	let selectedProperties = getSelectedProperties().join(',');
 	pathnameSlugs[4] = selectedProperties;
-	history.pushState({}, "Extract", pathnameSlugs.join('/'));
+	history.pushState({}, 'Extract', pathnameSlugs.join('/'));
 }
 
-function buildExtractionQuery(){
+function buildExtractionQuery () {
 
 	// `activeEventCollection` comes via the controller and is assigned to the window oject.
 	if (!activeEventCollection) {
@@ -63,13 +63,13 @@ function buildExtractionQuery(){
 	const query = new keenIO.Query('extraction', {
 		timeframe: timeframe,
 		event_collection: activeEventCollection,
-		property_names: `["${getSelectedProperties().join('","')}"]`,
+		property_names: `['${getSelectedProperties().join('','')}']`,
 		latest: document.querySelector('.extract__numberOfEvents').value || 100
 	});
 	return query;
 }
 
-function runExtractionQuery(query){
+function runExtractionQuery (query) {
 	return new Promise((resolve, reject) => {
 		try {
 			const keen = keenIO.configure({
@@ -88,11 +88,11 @@ function runExtractionQuery(query){
 	});
 }
 
-function renderToDom(response){
+function renderToDom (response) {
 	outputElement.classList.remove('chart--loading');
 
 	// Columns -> table headings
-	let flattened = response.result.map(function(event) {
+	let flattened = response.result.map(function (event) {
 		return flat(event);
 	});
 
@@ -113,7 +113,7 @@ function renderToDom(response){
 	});
 }
 
-function prepareDownloadCSV(response){
+function prepareDownloadCSV (response) {
 	const date = new Date;
 	const filename = `${activeEventCollection}-${date.toISOString()}.csv`;
 	const flattened = response.result.map(event => flat(event));
@@ -127,8 +127,8 @@ function prepareDownloadCSV(response){
 		}
 
 		const csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(`${headings}\n${data}`);
-		$(".extract__download")
-			.removeClass("hidden")
+		$('.extract__download')
+			.removeClass('hidden')
 			.attr({
 				'download': filename,
 				'href': csvData
@@ -136,13 +136,13 @@ function prepareDownloadCSV(response){
 	});
 }
 
-function punchItChewie() {
+function punchItChewie () {
 	if (outputElement.classList.contains('chart--loading')) {
 		return false;
 	}
 	let selectedProperties = getSelectedProperties();
 	if (!selectedProperties || selectedProperties.length < 1) {
-		document.querySelector('.extract__submit').innerHTML = "⬅ Select some properties please";
+		document.querySelector('.extract__submit').innerHTML = '⬅ Select some properties please';
 		return false;
 	}
 	tableHead.innerHTML = '';
@@ -159,7 +159,7 @@ function punchItChewie() {
 	}
 }
 
-function init() {
+function init () {
 	window.outputUpdate(document.querySelector('.extract__numberOfEvents').value);
 	document.querySelector('.extract__submit').onclick = punchItChewie;
 	[].forEach.call(document.querySelectorAll('.extract__properties input[type=checkbox]'), input_element => {

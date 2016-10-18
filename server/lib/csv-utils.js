@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 /*
 
@@ -11,11 +11,11 @@
 
 */
 
-module.exports.columns = function(data) {
+module.exports.columns = function (data) {
 	const cols = {};
 	data
-		.forEach(function(d) {
-			return Object.keys(d).map(function(a) {
+		.forEach(function (d) {
+			return Object.keys(d).map(function (a) {
 				cols[a] = '-';
 			});
 		});

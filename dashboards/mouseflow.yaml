@@ -8,7 +8,7 @@ charts:
     question: Signup form visitors
     name: signup
     query: page:view
-            ->count(device.spoorId)
+            ->count(device.spoorId)->filter(context.product=next)
             ->filter(page.location.normalizedPath~/signup)
             ->filter(page.location.host=www.ft.com)
             ->filter(user.geo.isFinancialTimesOffice=false)
@@ -18,7 +18,7 @@ charts:
     question: Visitors clicking on 'Buy' button
     name: submit
     query: cta:click
-      ->count(device.spoorId)
+      ->count(device.spoorId)->filter(context.product=next)
       ->filter(page.location.normalizedPath~/signup)
       ->filter(page.location.host=www.ft.com)
       ->filter(user.geo.isFinancialTimesOffice=false)
@@ -28,45 +28,45 @@ charts:
     question: Barrier visitors
     name: barriers
     query: barrier:view
-              ->count(device.spoorId)
+              ->count(device.spoorId)->filter(context.product=next)
               ->filter(user.geo.isFinancialTimesOffice=false)
   -
     question: Light signup subscribers
     name: lightsignup
     query: light-signup:subscribed
-            ->count(device.spoorId)
+            ->count(device.spoorId)->filter(context.product=next)
             ->filter(context.isTestEvent=false)
             ->filter(user.geo.isFinancialTimesOffice=false)
   -
     question: Visitor clicks on header MyFT
     name: myft
     query: cta:click
-            ->count(device.spoorId)
+            ->count(device.spoorId)->filter(context.product=next)
             ->filter(click.dataTrackablePath~header-top | my-ft)
             ->filter(user.geo.isFinancialTimesOffice=false)
   -
     question: Visitor clicks on Search
     name: search
     query: cta:click
-            ->count(device.spoorId)
+            ->count(device.spoorId)->filter(context.product=next)
             ->filter(click.dataTrackablePath~header-top | search-toggle)
             ->filter(user.geo.isFinancialTimesOffice=false)
   -
     question: Visitor clicks on Menu
     name: menu
     query: cta:click
-            ->count(device.spoorId)
+            ->count(device.spoorId)->filter(context.product=next)
             ->filter(click.dataTrackablePath~header-top | drawer-toggle)
             ->filter(user.geo.isFinancialTimesOffice=false)
   -
     question: Visitor clicks on a Subscribe link
     name: subscribe
     query: cta:click
-            ->count(device.spoorId)
+            ->count(device.spoorId)->filter(context.product=next)
             ->filter(click.dataTrackablePath~Subscribe)
   -
     question: Visitors interacting with the header
     name: header
     query: cta:click
-            ->count(device.spoorId)
+            ->count(device.spoorId)->filter(context.product=next)
             ->filter(click.dataTrackablePath~header)

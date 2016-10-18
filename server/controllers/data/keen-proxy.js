@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 // Accepts a keen-io API URL.
 // Example: /data/keen-proxy/3.0/projects/{project ID}/queries/count_unique?api_key={API key}

@@ -7,64 +7,64 @@ charts:
   -
     question: What percentage of users opt out?
     name: opt-out-rate
-    query: "@pct(site:optout->count(user.uuid),page:view->count(user.uuid))"
+    query: "@pct(site:optout->count(user.uuid)->filter(context.product=next),page:view->count(user.uuid)->filter(context.product=next))"
   -
     question: What percentage of users opt in?
     name: opt-in-rate
-    query: "@pct(site:optin->count(user.uuid)->filter(context.optedVia!=__anon-opt-in)->filter(context.optedVia!=__m-dot-opt-in),page:view->count(user.uuid))"
+    query: "@pct(site:optin->count(user.uuid)->filter(context.product=next)->filter(context.optedVia!=__anon-opt-in)->filter(context.optedVia!=__m-dot-opt-in),page:view->count(user.uuid)->filter(context.product=next))"
   -
     question: How many users opted out?
     name: total-optouts
-    query: site:optout->count(user.uuid)
+    query: site:optout->count(user.uuid)->filter(context.product=next)
     printer: ColumnChart
     colspan: 12 L4
   -
     question: How many users opted in?
     name: total-optins
-    query: site:optin->count(user.uuid)->filter(context.optedVia!=__anon-opt-in)->filter(context.optedVia!=__m-dot-opt-in)
+    query: site:optin->count(user.uuid)->filter(context.product=next)->filter(context.optedVia!=__anon-opt-in)->filter(context.optedVia!=__m-dot-opt-in)
     printer: ColumnChart
     colspan: 12 L4
   -
     question: How many signed in users do we have?
     name: users/signed-in
-    query: "page:view->count(user.uuid)"
+    query: "page:view->count(user.uuid)->filter(context.product=next)"
     printer: ColumnChart
     colspan: 12 L4
   -
     question: What's the ratio of optouts to opt out form views?
     name: form-completion
-    query: "@pct(site:optout->count(),page:view->count()->filter(page.location.path~opt-out-confirm))"
+    query: "@pct(site:optout->count()->filter(context.product=next),page:view->count()->filter(context.product=next)->filter(page.location.path~opt-out-confirm))"
     colspan: 12 L4
   -
     question: Are any browsers showing unusually high opt out rates (excluding browsers with < 5 opt outs)?
     name: opt-out-rate/by-browser
-    query: "@pct(site:optout->count(user.uuid)->cutoff(5),page:view->count(user.uuid))->group(device.browserName)->tidy(true)->top(10)->print(BarChart)"
+    query: "@pct(site:optout->count(user.uuid)->filter(context.product=next)->cutoff(5),page:view->count(user.uuid)->filter(context.product=next))->group(device.browserName)->tidy(true)->top(10)->print(BarChart)"
     interval: false
     printer: BarChart
     colspan: 12 L4
   -
     question: Which links do users click in the opt-out page?
     name: opt-out-page-links
-    query: "cta:click->count(device.spoorId)->group(click.dataTrackablePath)->filter(click.dataTrackablePath~looking)->sortDesc(cta:click)"
+    query: "cta:click->count(device.spoorId)->filter(context.product=next)->group(click.dataTrackablePath)->filter(click.dataTrackablePath~looking)->sortDesc(cta:click)"
     interval: false
     printer: Table
     colspan: 12 L4
   -
     question: "What's the most popular opt-out reason for each device?"
     name: "reasons/devices"
-    query: "site:optout->count()->group(context.reason,device.primaryHardwareType)->filter(context.reason)->filter(device.primaryHardwareType)->filter(device.primaryHardwareType!=false)"
+    query: "site:optout->count()->filter(context.product=next)->group(context.reason,device.primaryHardwareType)->filter(context.reason)->filter(device.primaryHardwareType)->filter(device.primaryHardwareType!=false)"
     interval: false
     printer: Table
   -
     question: "What devices are used by people who type opt-out reasons?"
     name: "reasons/other/devices"
-    query: "site:optout->count()->group(context.other,device.primaryHardwareType)->filter(context.other)->filter(device.primaryHardwareType)->filter(device.primaryHardwareType!=false)"
+    query: "site:optout->count()->filter(context.product=next)->group(context.other,device.primaryHardwareType)->filter(context.other)->filter(device.primaryHardwareType)->filter(device.primaryHardwareType!=false)"
     interval: false
     printer: Table
   -
     question: "What's the most popular opt-out reason for each browser?"
     name: "reasons/browsers"
-    query: "site:optout->count()->group(context.reason,device.browserName)->filter(context.reason)->filter(device.browserName)->filter(device.browserName!=false)"
+    query: "site:optout->count()->filter(context.product=next)->group(context.reason,device.browserName)->filter(context.reason)->filter(device.browserName)->filter(device.browserName!=false)"
     interval: false
     printer: Table
     colspan: 12 L12

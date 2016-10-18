@@ -65,7 +65,7 @@ charts:
     question: What percentage of users are on a HTTP/2 connection?
     name: http2-split
     query: "page:view
-      ->count()
+      ->count()->filter(context.product=next)
       ->relTime(this_1_days)
       ->group(device.h2.h2Enabled)
       ->print(PieChart)"

@@ -1,11 +1,11 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 const fetchKeenCollections = () => {
 	return new Promise((resolve, reject) => {
 		fetch(`https://keen-proxy.ft.com/3.0/projects/${process.env.KEEN_PROJECT_ID}/events?api_key=${process.env.KEEN_MASTER}`)
 			.then(response => {
 				if (response.status >= 400) {
-					reject(Error("Bad response from server"));
+					reject(Error('Bad response from server'));
 				}
 				return response.json();
 			})
@@ -38,7 +38,7 @@ const getProperties = (req, collection) => {
 	properties = properties.reduce((result, property) => {
 		property = {
 			name: property,
-			checked: (selectedEventProperties.indexOf(property) > -1) ? "checked" : ""
+			checked: (selectedEventProperties.indexOf(property) > -1) ? 'checked' : ''
 		};
 		return result.concat(property);
 	}, []);
