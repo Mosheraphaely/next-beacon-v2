@@ -63,13 +63,13 @@ charts:
     printer: PieChart
     interval: false
   -
-    question: 10. Anon users by Device Type
-    name: Device Type
-    query: "page:view->count(device.spoorId)->group(device.primaryHardwareType)->filter(!user.uuid)->filter(device.primaryHardwareType)->relTime(this_30_days)->print(PieChart)"
+    question: 10. Interactions on Lionel Slider
+    name: Lionel Slider
+    query: "@concat(cta:click->count()->filter(click.dataTrackablePath~subscription-offer-prompt | subscribe),cta:click->count()->filter(click.dataTrackablePath~subscription-offer-prompt | close,message:show->count())->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.subscriptions.b2b.licenceHolders)->relabel(_headings,subscribe,close)->interval(d)"
   -
     question: 11. Interactions % on Lionel Slider
     name: Lionel Slider
-    query: "@concat(@ratio(cta:click->count()->filter(click.dataTrackablePath~subscription-offer-prompt | subscribe),message:show->count()),@ratio(cta:click->count()->filter(click.dataTrackablePath~subscription-offer-prompt | close),message:show->count()))->filter(user.geo.isFinancialTimesOffice=false)->relabel(_headings,subscribe,close)->interval(d)"
+    query: "@concat(@ratio(cta:click->count()->filter(click.dataTrackablePath~subscription-offer-prompt | subscribe),message:show->count()),@ratio(cta:click->count()->filter(click.dataTrackablePath~subscription-offer-prompt | close),message:show->count()))->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.subscriptions.b2b.licenceHolders)->relabel(_headings,subscribe,close)->interval(d)"
   -
     question: 12. Interactions on Marketing Promo
     name: Marketing Promo
