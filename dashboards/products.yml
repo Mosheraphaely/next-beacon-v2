@@ -1,0 +1,14 @@
+# Note: Any strings begining with @ or % must be wrapped in quote marks
+---
+id: products
+title: Products
+isPrimary: true
+charts:
+  -
+    question: What is the daily product split for page views?
+    name: products/pageview
+    query: "page:view
+  ->count()
+  ->group(context.product)
+  ->interval(d)
+  ->print(LineChart)"
