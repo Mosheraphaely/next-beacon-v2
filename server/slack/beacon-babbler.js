@@ -9,7 +9,7 @@ const slackbot = controller.spawn({
 	token: process.env.SLACK_BOT_TOKEN
 });
 
-slackbot.startRTM(function(err) {
+slackbot.startRTM(function (err) {
 	if (err) {
 		throw new Error('Could not connect to Slack');
 	}

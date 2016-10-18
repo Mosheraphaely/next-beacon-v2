@@ -3,7 +3,7 @@
 // Render a group of charts in a dashboard
 const yaml = require('js-yaml');
 
-module.exports = function(req, res) {
+module.exports = function (req, res) {
 	const uuid = req.query.uuid;
 
 	if (!uuid) {

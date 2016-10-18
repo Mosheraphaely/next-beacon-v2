@@ -63,7 +63,7 @@ module.exports = {
 			return {q, printer}
 		}
 
-		function run() {
+		function run () {
 			let kq = KeenQuery.build(sanitisedQuery())
 			if (!kq._printer) {
 				kq = kq.setPrinter('LineChart');

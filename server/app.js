@@ -28,16 +28,16 @@ app.get('/__gtg', function (req, res) {
 	res.send(200);
 });
 
-app.get('/__debug-ssl', function(req, res) {
+app.get('/__debug-ssl', function (req, res) {
 	res.json({
 		protocol: req.protocol,
 		headers: req.headers
 	});
 });
 
-app.get('/hashed-assets/:path*', function(req, res) {
+app.get('/hashed-assets/:path*', function (req, res) {
 	const path = 'http://ft-next-hashed-assets-prod.s3-website-eu-west-1.amazonaws.com' + req.path;
-	http.get(path, function(proxyRes) {
+	http.get(path, function (proxyRes) {
 		proxyRes.pipe(res);
 	});
 });
@@ -56,7 +56,7 @@ app.get(/^\/data\/keen-proxy\/(.*)/, require('./controllers/data/keen-proxy'));
 app.get('/data/export/:limit', require('./controllers/data/export'));
 app.get('/data/extract/:event_collection?/:event_properties?', require('./controllers/data/extract'));
 
-app.get('/data/explorer', function(req, res) {
+app.get('/data/explorer', function (req, res) {
 	res.render('keen', {
 		layout: null,
 		title: 'Data explorer',
@@ -66,7 +66,7 @@ app.get('/data/explorer', function(req, res) {
 	});
 });
 
-app.get('/data/query-wizard', function(req, res) {
+app.get('/data/query-wizard', function (req, res) {
 	res.render('query-wizard', {
 		layout: 'beacon',
 		title: 'Query wizard',
@@ -75,7 +75,7 @@ app.get('/data/query-wizard', function(req, res) {
 });
 
 // pipe through to an AWS bucket containing Redshift exports
-app.get('/data/reports/*', function(req, res) {
+app.get('/data/reports/*', function (req, res) {
 	var signed = aws4.sign({
 		service: 's3',
 		hostname: process.env.S3_HOST,
@@ -86,7 +86,7 @@ app.get('/data/reports/*', function(req, res) {
 		accessKeyId: process.env.S3_AWS_ACCESS,
 		secretAccessKey: process.env.S3_AWS_SECRET
 	});
-	https.get(signed, function(proxyRes) {
+	https.get(signed, function (proxyRes) {
 		proxyRes.pipe(res);
 	});
 });

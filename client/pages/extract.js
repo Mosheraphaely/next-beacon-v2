@@ -11,7 +11,7 @@ const outputElement = document.querySelector('.extract__output');
 const tableHead = outputElement.querySelector('thead tr');
 const tableBody = outputElement.querySelector('tbody');
 
-window.outputUpdate = function(value) {
+window.outputUpdate = function (value) {
 	document.querySelector('.extract__numberOfEvents').value = value;
 	const submitBtn = document.querySelector('.extract__submit');
 
@@ -32,7 +32,7 @@ window.outputUpdate = function(value) {
 	}
 }
 
-function getSelectedProperties(){
+function getSelectedProperties () {
 	let selectedProperties = [].filter.call(document.querySelectorAll('.extract__properties input[type=checkbox]'), input_element => {
 		return input_element.checked === true;
 	}).map(input_element => {
@@ -41,7 +41,7 @@ function getSelectedProperties(){
 	return selectedProperties;
 }
 
-function updateHistory() {
+function updateHistory () {
 	let pathnameSlugs = location.pathname.split('/');
 	pathnameSlugs[3] = activeEventCollection;
 
@@ -50,7 +50,7 @@ function updateHistory() {
 	history.pushState({}, 'Extract', pathnameSlugs.join('/'));
 }
 
-function buildExtractionQuery(){
+function buildExtractionQuery () {
 
 	// `activeEventCollection` comes via the controller and is assigned to the window oject.
 	if (!activeEventCollection) {
@@ -69,7 +69,7 @@ function buildExtractionQuery(){
 	return query;
 }
 
-function runExtractionQuery(query){
+function runExtractionQuery (query) {
 	return new Promise((resolve, reject) => {
 		try {
 			const keen = keenIO.configure({
@@ -88,11 +88,11 @@ function runExtractionQuery(query){
 	});
 }
 
-function renderToDom(response){
+function renderToDom (response) {
 	outputElement.classList.remove('chart--loading');
 
 	// Columns -> table headings
-	let flattened = response.result.map(function(event) {
+	let flattened = response.result.map(function (event) {
 		return flat(event);
 	});
 
@@ -113,7 +113,7 @@ function renderToDom(response){
 	});
 }
 
-function prepareDownloadCSV(response){
+function prepareDownloadCSV (response) {
 	const date = new Date;
 	const filename = `${activeEventCollection}-${date.toISOString()}.csv`;
 	const flattened = response.result.map(event => flat(event));
@@ -136,7 +136,7 @@ function prepareDownloadCSV(response){
 	});
 }
 
-function punchItChewie() {
+function punchItChewie () {
 	if (outputElement.classList.contains('chart--loading')) {
 		return false;
 	}
@@ -159,7 +159,7 @@ function punchItChewie() {
 	}
 }
 
-function init() {
+function init () {
 	window.outputUpdate(document.querySelector('.extract__numberOfEvents').value);
 	document.querySelector('.extract__submit').onclick = punchItChewie;
 	[].forEach.call(document.querySelectorAll('.extract__properties input[type=checkbox]'), input_element => {

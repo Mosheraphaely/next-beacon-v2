@@ -8,7 +8,7 @@ function getDashboardTitle (req) {
 	return title.charAt(0).toUpperCase() + title.slice(1);
 }
 
-module.exports = function(req, res) {
+module.exports = function (req, res) {
 	const dashboardPath = req.params[0];
 	const dashboardName = dashboardPath.split('/')[0];
 

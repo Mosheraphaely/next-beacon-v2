@@ -55,7 +55,7 @@ const generateResponse = (results) => {
 };
 
 
-bot.startRTM(function(err) {
+bot.startRTM(function (err) {
 	if (err) {
 		throw new Error('Could not connect to Slack');
 	}
