@@ -12,7 +12,7 @@ window.timer = {
 		this.startDate = new Date();
 	},
 	log: function (name) {
-		console.log(name, new Date() - this.startDate);
+		console.log(name, new Date() - this.startDate); // eslint-disable-line no-console
 	}
 }
 

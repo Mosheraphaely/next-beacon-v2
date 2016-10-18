@@ -31,7 +31,7 @@ try {
 						c.colspan = c.colspan || '12 L6'
 					});
 				} catch (e) {
-					console.log(`Error loading dashboard file: ${directory}${file}`);
+					console.log(`Error loading dashboard file: ${directory}${file}`); // eslint-disable-line no-console
 					throw e;
 				}
 			});
@@ -40,7 +40,7 @@ try {
 		}
 	});
 } catch (e) {
-	console.log('Error loading dashboard file/s');
+	console.log('Error loading dashboard file/s'); // eslint-disable-line no-console
 }
 
 

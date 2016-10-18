@@ -24,7 +24,6 @@ KeenQuery.buildFromAlias = (alias) => {
 }
 
 KeenQuery.generateExplorerUrl = (builtQuery) => {
-	console.log('KeenQuery.generateExplorerUrl() is deprecated');
 	return builtQuery.generateKeenUrl('/data/explorer?','explorer');
 }
 

@@ -12,7 +12,7 @@ function finishRender (printerEl, chartConfig) {
 }
 
 export function displayError (printerEl, err, kq, chartConfig) {
-	console.log('Error', err, kq, chartConfig);
+	console.log('Error', err, kq, chartConfig); // eslint-disable-line no-console
 	printerEl.classList.remove('chart--loading');
 	printerEl.classList.add('chart-error');
 	printerEl.innerHTML = `<p class="error"><strong>Error: </strong>${err.message || err}</span><p>${chartConfig.name}, ${chartConfig.label}, ${chartConfig.question}: ${chartConfig.query}</p>`;

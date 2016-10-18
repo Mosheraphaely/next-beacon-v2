@@ -105,7 +105,7 @@ controller.hears(['(.*)'],['direct_message','direct_mention','mention'], (bot, m
 	})
 	.catch((err) => {
 		bot.reply(message, 'Sorry, I couldn\'t answer your question :(: ```' + err + '```');
-		console.error(err);
+		console.error(err); // eslint-disable-line no-console
 	});
 
 });
