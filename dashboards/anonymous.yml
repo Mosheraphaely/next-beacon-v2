@@ -8,14 +8,14 @@ charts:
     question: 1. Are weekly anonymous visitor counts increasing?
     name: weekly
     query: page:view->count(device.spoorId)->filter(context.product=next)->filter(!user.uuid)->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.subscriptions.b2b.licenceHolders)
-    timeframe: this_12_weeks
+    timeframe: last_12_weeks
     interval: w
     datalabel: Anonymous visitors per week
   -
     question: 2. Are daily anonymous visitor counts increasing?
     name: daily
     query: page:view->count(device.spoorId)->filter(context.product=next)->filter(!user.uuid)->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.subscriptions.b2b.licenceHolders)
-    timeframe: this_4_weeks
+    timeframe: last_4_weeks
     interval: d
     datalabel: Anonymous visitors per day
   -
@@ -73,4 +73,4 @@ charts:
   -
     question: 12. Interactions on Marketing Promo
     name: Marketing Promo
-    query: "@sum(cta:click->count(device.spoorId)->filter(context.product=next)->filter(context.domPath~marketing-promo),cta:click->count(device.spoorId)->filter(context.product=next)->filter(click.dataTrackablePath~marketing-promo))->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_2_months)->group(user.cohort.productNames)->print(Table)"
+    query: "@sum(cta:click->count(device.spoorId)->filter(context.product=next)->filter(context.domPath~marketing-promo),cta:click->count(device.spoorId)->filter(context.product=next)->filter(click.dataTrackablePath~marketing-promo))->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->relTime(last_2_months)->group(user.cohort.productNames)->print(Table)"
