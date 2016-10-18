@@ -1,8 +1,8 @@
 'use strict';
 
-var TerseQuery = require('./terse-query');
+const TerseQuery = require('./terse-query');
 
-var q = process.argv[2];
+let q = process.argv[2];
 
 if (!/->print\(/.test(q)) {
 	q = q + '->print(ascii)';

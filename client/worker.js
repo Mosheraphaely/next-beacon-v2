@@ -22,7 +22,7 @@ self.addEventListener('activate', function () {
 });
 
 self.addEventListener('fetch', function (event) {
-	var request = event.request;
+	const request = event.request;
 	// console.log('real fetch', request.url)
 	if (/www\.gstatic\.com\//.test(request.url)) {
 		// console.log('trying to find in cache', request.url)

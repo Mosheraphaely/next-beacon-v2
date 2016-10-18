@@ -1,6 +1,6 @@
 'use strict';
 
-var oTracking = require('o-tracking');
+const oTracking = require('o-tracking');
 
 // oTracking is only desired for the production environment.
 if (!!document.querySelector('html[data-next-is-production]')) {

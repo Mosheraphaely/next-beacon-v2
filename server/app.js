@@ -2,7 +2,7 @@
 
 const http = require('http');
 const https = require('https');
-var aws4 = require('aws4');
+const aws4 = require('aws4');
 const auth = require('./middleware/auth');
 const window = require('./middleware/window');
 const aliases = require('./middleware/aliases');
@@ -76,7 +76,7 @@ app.get('/data/query-wizard', function (req, res) {
 
 // pipe through to an AWS bucket containing Redshift exports
 app.get('/data/reports/*', function (req, res) {
-	var signed = aws4.sign({
+	const signed = aws4.sign({
 		service: 's3',
 		hostname: process.env.S3_HOST,
 		path: '/' + req.params[0],
