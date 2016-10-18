@@ -56,7 +56,6 @@ charts:
             ->filter(page.location.normalizedPath~/signup)
             ->filter(page.location.host~ft.com)
             ->filter(user.geo.isFinancialTimesOffice=false)
-
     datalabel: exists
     printer: ColumnChart
     colspan: 4
@@ -78,4 +77,3 @@ charts:
     question: 11. Zuora response performance SELECT PAYMENT METHOD ?
     name: Submit CC and DD
     query: "@concat(page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h),page:perf-timing->avg(context.meta.timing)->filter(context.meta.name=renderCreditCard)->relTime(previous_48_hours)->interval(h))->relabel(_headings,CC milliseconds,DD milliseconds)"
-
