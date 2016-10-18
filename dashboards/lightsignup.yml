@@ -7,50 +7,50 @@ charts:
   -
     question: 1. How many subscribers does light signup get every day?
     name: lightsignup
-    query: "light-signup:subscribed->count()->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_6_weeks)->print(LineChart)"
+    query: "light-signup:subscribed->count()->filter(context.product=next)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_6_weeks)->print(LineChart)"
     datalabel: "Subscribers p/day"
   -
     question: 2. Subscriber rate compared to anonymous article traffic served the LSU form?
     name: views-to-subscriptions
-    query: "@concat(page:view->count(device.spoorId)->filter(!user.uuid)->filter(page.location.type=article)->filter(user.geo.isFinancialTimesOffice=false)->filter(context.url!~utm_term=lightsignup)->filter(!user.subscriptions.b2b.licenceHolders),light-signup:subscribed->count()->filter(user.geo.isFinancialTimesOffice=false)->filter(context.isTestEvent=false))"
+    query: "@concat(page:view->count(device.spoorId)->filter(context.product=next)->filter(!user.uuid)->filter(page.location.type=article)->filter(user.geo.isFinancialTimesOffice=false)->filter(context.url!~utm_term=lightsignup)->filter(!user.subscriptions.b2b.licenceHolders),light-signup:subscribed->count()->filter(context.product=next)->filter(user.geo.isFinancialTimesOffice=false)->filter(context.isTestEvent=false))"
     printer: StackedLineChart
     datalabel: "Subscribers p/day"
   -
     question: 3. Which platform are users joining light signup via?
     name: lighsignup-product
-    query: "light-signup:subscribed->count(device.spoorId)->group(context.product)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->filter(context.product)"
+    query: "light-signup:subscribed->count(device.spoorId)->filter(context.product=next)->group(context.product)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->filter(context.product)"
     printer: StackedColumnChart
   -
     question: 4. Which topic from the LSU chooser are most popular ?
     name: lightsignup-topic
-    query: "light-signup:subscribed->count(device.spoorId)->group(context.topics)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->filter(context.topics)->relTime(this_60_days)"
+    query: "light-signup:subscribed->count(device.spoorId)->filter(context.product=next)->group(context.topics)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->filter(context.topics)->relTime(this_60_days)"
     printer: PieChart
   -
     question: "5. How many (trackable) light signup subscribers go on to purchase a subscription?"
     name: lightsignup-conversion
-    query: "@funnel(light-signup:subscribed->count(device.spoorId),page:view->count(device.spoorId)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(!user.uuid)->filter(page.referrer.normalizedPath!~/signup),signup:subscription-created->count(device.spoorId))->with(device.spoorId)->relTime(this_2_months)"
+    query: "@funnel(light-signup:subscribed->count(device.spoorId)->filter(context.product=next),page:view->count(device.spoorId)->filter(context.product=next)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(!user.uuid)->filter(page.referrer.normalizedPath!~/signup),signup:subscription-created->count(device.spoorId)->filter(context.product=next))->with(device.spoorId)->relTime(this_2_months)"
     printer: Table
     datalabel: "Conversion all-time"
   -
     question: 6. How many visits to the subscription funnel does light signup generate?
     name: lightsignup-funnel
-    query: email:click->count(context.deviceId)->filter(context.product="light-signup")->filter(context.targetLinkUrl~"801043")
+    query: email:click->count(context.deviceId)->filter(context.product=next)->filter(context.product="light-signup")->filter(context.targetLinkUrl~"801043")
     datalabel: "Funnel clicks p/day"
   -
     question: 7. LSU subscription by Device
     name: lightsignup-device
-    query: "light-signup:subscribed->count()->group(device.primaryHardwareType)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->print(PieChart)"
+    query: "light-signup:subscribed->count()->filter(context.product=next)->group(device.primaryHardwareType)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->print(PieChart)"
     printer: PieChart
     datalabel: "Device Share"
   -
     question: 8. How many anon users are sent the light signup email?
     name: emailsent
-    query: email:delivery->count()->group(context.product)->filter(context.product=light-signup)->filter(context.product)->print(LineChart)
+    query: email:delivery->count()->filter(context.product=next)->group(context.product)->filter(context.product=light-signup)->filter(context.product)->print(LineChart)
   -
     question: 9. How many anon users open the light signup email?
     name: emailopens
-    query: email:open->count()->filter(context.product=light-signup)->filter(user.geo.isFinancialTimesOffice=false)
+    query: email:open->count()->filter(context.product=next)->filter(context.product=light-signup)->filter(user.geo.isFinancialTimesOffice=false)
   -
     question: 10. How many anon users clicked on the light signup email?
     name: emailclicks
-    query: email:click->filter(context.product=light-signup)->count()->filter(user.geo.isFinancialTimesOffice=false)
+    query: email:click->filter(context.product=light-signup)->count()->filter(context.product=next)->filter(user.geo.isFinancialTimesOffice=false)

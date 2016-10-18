@@ -12,7 +12,7 @@ charts:
     comments:view,
     page:view->filter(page.location.type=article)->filter(content.features.hasComments=true)
 )
-  ->count()
+  ->count()->filter(context.product=next)
   ->byDevice()"
   -
     question: What's the median comment load time
@@ -49,7 +49,7 @@ charts:
   ),
   comments:view
 )
-  ->count()
+  ->count()->filter(context.product=next)
   ->filter(device.primaryHardwareType=Mobile Phone)
   ->relabel(_headings,No delay,less than 100ms,less than 500ms,less than 2s,success)"
     printer: StackedAreaChart
@@ -78,7 +78,7 @@ charts:
   ),
   comments:view
 )
-  ->count()
+  ->count()->filter(context.product=next)
   ->filter(device.primaryHardwareType=Tablet)
   ->relabel(_headings,No delay,less than 100ms,less than 500ms,less than 2s,success)"
     printer: StackedAreaChart
@@ -107,7 +107,7 @@ charts:
   ),
   comments:view
 )
-  ->count()
+  ->count()->filter(context.product=next)
   ->filter(device.primaryHardwareType=Desktop)
   ->relabel(_headings,No delay,less than 100ms,less than 500ms,less than 2s,success)"
     printer: StackedAreaChart
@@ -117,11 +117,11 @@ charts:
     colspan: 12 M4
     query: "@pct(
   comments:view
-    ->count()
+    ->count()->filter(context.product=next)
     ->group(context.context.userEngagement)
     ->reorder(context.context.userEngagement,active,passive,previous,none),
   comments:view
-    ->count()
+    ->count()->filter(context.product=next)
 )
   ->filter(device.primaryHardwareType=Mobile Phone)
   ->tidy()"
@@ -132,11 +132,11 @@ charts:
     colspan: 12 M4
     query: "@pct(
   comments:view
-    ->count()
+    ->count()->filter(context.product=next)
     ->group(context.context.userEngagement)
     ->reorder(context.context.userEngagement,active,passive,previous,none),
   comments:view
-    ->count()
+    ->count()->filter(context.product=next)
 )
   ->filter(device.primaryHardwareType=Tablet)
   ->tidy()"
@@ -147,11 +147,11 @@ charts:
     colspan: 12 M4
     query: "@pct(
   comments:view
-    ->count()
+    ->count()->filter(context.product=next)
     ->group(context.context.userEngagement)
     ->reorder(context.context.userEngagement,active,passive,previous,none),
   comments:view
-    ->count()
+    ->count()->filter(context.product=next)
 )
   ->filter(device.primaryHardwareType=Desktop)
   ->tidy()"
@@ -172,7 +172,7 @@ charts:
   comments:view
 
 )
-  ->count()
+  ->count()->filter(context.product=next)
   ->filter(device.primaryHardwareType=Mobile Phone)
   ->group(context.context.userEngagement)
   ->reorder(context.context.userEngagement,none,passive,active,previous)
@@ -194,7 +194,7 @@ charts:
   comments:view
 
 )
-  ->count()
+  ->count()->filter(context.product=next)
   ->filter(device.primaryHardwareType=Tablet)
   ->group(context.context.userEngagement)
   ->reorder(context.context.userEngagement,none,passive,active,previous)
@@ -216,7 +216,7 @@ charts:
   comments:view
 
 )
-  ->count()
+  ->count()->filter(context.product=next)
   ->filter(device.primaryHardwareType=Desktop)
   ->group(context.context.userEngagement)
   ->reorder(context.context.userEngagement,none,passive,active,previous)

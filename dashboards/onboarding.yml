@@ -10,7 +10,7 @@ charts:
     question: "How many users view the Tips (tour) via the welcome msg CTA"
     name: dashboard/onboarding/welcometour
     query: "cta:click
-              ->count(user.uuid)
+              ->count(user.uuid)->filter(context.product=next)
               ->filter(click.dataTrackablePath~welcome | tour-page)
               ->filter(user.subscriptions.isStaff!=true)
               ->group(device.mobileDevice)
@@ -23,7 +23,7 @@ charts:
     question: "How many users are giving Feedback via the welcome banner"
     name: dashboard/onboarding/feedbacktour
     query: "cta:click
-              ->count(user.uuid)
+              ->count(user.uuid)->filter(context.product=next)
               ->filter(click.dataTrackablePath~welcome | nps-feedback)
               ->filter(user.subscriptions.isStaff!=true)
               ->group(device.mobileDevice)
@@ -36,7 +36,7 @@ charts:
     question: "How many users are using help CTA via the welcome banner"
     name: dashboard/onboarding/helptour
     query: "cta:click
-              ->count(user.uuid)
+              ->count(user.uuid)->filter(context.product=next)
               ->filter(click.dataTrackablePath~welcome | help)
               ->filter(user.subscriptions.isStaff!=true)
               ->group(device.mobileDevice)
@@ -50,12 +50,12 @@ charts:
     name: dashboard/onboarding/helptouravg
     query: "@ratio(
               cta:click
-                ->count()
+                ->count()->filter(context.product=next)
                 ->filter(user.uuid)
                 ->filter(click.dataTrackablePath~welcome | help)
                 ->filter(user.subscriptions.isStaff!=true),
               cta:click
-                ->count(user.uuid)
+                ->count(user.uuid)->filter(context.product=next)
                 ->filter(click.dataTrackablePath~welcome | help)
                 ->filter(user.subscriptions.isStaff!=true)
             )
@@ -65,7 +65,7 @@ charts:
     question: "How many users are minimising/suspending the welcome strip"
     name: dashboard/onboarding/welcomemin
     query: "cta:click
-              ->count(user.uuid)
+              ->count(user.uuid)->filter(context.product=next)
               ->filter(click.dataTrackablePath~welcome | toggled)
               ->filter(user.subscriptions.isStaff!=true)
               ->group(device.mobileDevice)
@@ -83,7 +83,7 @@ charts:
               cta:click
 
             )
-              ->count(user.uuid)
+              ->count(user.uuid)->filter(context.product=next)
               ->filter(user.subscriptions.isStaff!=true)
               ->group(device.mobileDevice)
               ->filter(device.mobileDevice)
@@ -98,7 +98,7 @@ charts:
     question: "How many signed-in users visit help from Footer"
     name: dashboard/onboarding/footerhelp-signedin
     query: "cta:click
-              ->count(user.uuid)
+              ->count(user.uuid)->filter(context.product=next)
               ->filter(click.dataTrackablePath~footer)
               ->filter(click.dataTrackablePath~Help)
               ->filter(user.subscriptions.isStaff!=true)
@@ -108,7 +108,7 @@ charts:
     question: "How many anonymous users visit help from the Footer"
     name: dashboard/onboarding/footerhelp-anon
     query: "cta:click
-              ->count(device.spoorId)
+              ->count(device.spoorId)->filter(context.product=next)
               ->filter(click.dataTrackablePath~footer)
               ->filter(click.dataTrackablePath~Help)
               ->filter(!user.uuid)
@@ -120,12 +120,12 @@ charts:
     name: dashboard/onboarding/helptimesavg
     query: "@ratio(
               cta:click
-                ->count()
+                ->count()->filter(context.product=next)
                 ->filter(user.uuid)
                 ->filter(click.dataTrackablePath~elp)
                 ->filter(user.subscriptions.isStaff!=true),
               cta:click
-                ->count(user.uuid)
+                ->count(user.uuid)->filter(context.product=next)
                 ->filter(click.dataTrackablePath~elp)
                 ->filter(user.subscriptions.isStaff!=true)
             )
@@ -135,7 +135,7 @@ charts:
     question: "How many signed-in users opt out from the Footer"
     name: dashboard/onboarding/footeropt-outs
     query: "cta:click
-              ->count(user.uuid)
+              ->count(user.uuid)->filter(context.product=next)
               ->filter(click.dataTrackablePath~footer)
               ->filter(click.dataTrackablePath~Old FT.com)
               ->filter(user.subscriptions.isStaff!=true)
@@ -146,10 +146,10 @@ charts:
       name: dashboard/onboarding/tip-clicks
       query: "@concat(
                 cta:click
-                  ->count()
+                  ->count()->filter(context.product=next)
                   ->group(page.location.type),
                 cta:click
-                  ->count()
+                  ->count()->filter(context.product=next)
               )
                 ->filter(click.dataTrackablePath~ tour-tip)
                 ->filter(click.dataTrackablePath~ cta)
@@ -163,10 +163,10 @@ charts:
       name: dashboard/onboarding/tip-dismisses
       query: "@concat(
                 cta:click
-                  ->count()
+                  ->count()->filter(context.product=next)
                   ->group(page.location.type),
                 cta:click
-                  ->count()
+                  ->count()->filter(context.product=next)
               )
                 ->filter(click.dataTrackablePath~ tour-tip)
                 ->filter(click.dataTrackablePath~ dismiss)
@@ -179,7 +179,7 @@ charts:
       question: "Total visits to Tips page by cohort (anon/subscriber)"
       name: dashboard/onboarding/tour-page-visits
       query: "page:view
-                ->count()
+                ->count()->filter(context.product=next)
                 ->filter(page.location.pathname=/tour)
                 ->group(user.subscription)
                 ->print(Table)

@@ -7,33 +7,33 @@ charts:
   -
     question: 1. How many visitors do we get to the form every day?
     name: compare
-    query: "@concat(page:view->count(device.spoorId)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(page.referrer.normalizedPath!~/signup),page:view->count()->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(page.referrer.normalizedPath!~/signup),page:view->count(device.spoorId)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(!user.uuid)->filter(page.referrer.normalizedPath!~/signup),page:view->count()->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(page.referrer.normalizedPath!~/signup)->filter(!user.uuid))->relabel(_headings,Unique all visitors,Pageviews all,Unique anon,Pageviews anon)->tidy()"
+    query: "@concat(page:view->count(device.spoorId)->filter(context.product=next)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(page.referrer.normalizedPath!~/signup),page:view->count()->filter(context.product=next)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(page.referrer.normalizedPath!~/signup),page:view->count(device.spoorId)->filter(context.product=next)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(!user.uuid)->filter(page.referrer.normalizedPath!~/signup),page:view->count()->filter(context.product=next)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(page.referrer.normalizedPath!~/signup)->filter(!user.uuid))->relabel(_headings,Unique all visitors,Pageviews all,Unique anon,Pageviews anon)->tidy()"
     colspan: 8
     datalabel: Signup success rate
   -
     question: 2. What's our conversion rate this week? (%)
     name: this week's conversion rate
-    query: "@pct(signup:subscription-created->count()->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_7_days),page:view->count(device.spoorId)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(page.referrer.normalizedPath!~/signup)->filter(!user.uuid)->relTime(this_7_days))"
+    query: "@pct(signup:subscription-created->count()->filter(context.product=next)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_7_days),page:view->count(device.spoorId)->filter(context.product=next)->filter(page.location.normalizedPath~/signup)->filter(page.location.host~ft.com)->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(page.referrer.normalizedPath!~/signup)->filter(!user.uuid)->relTime(this_7_days))"
     interval: false
     colspan: 4
     datalabel: weekly conversion rate
   -
     question: 3. What's our weekly conversion rate trend?
     name: weekly conversion rate
-    query: "@pct(signup:subscription-created->count()->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_6_weeks),page:view->count(device.spoorId)->filter(page.location.normalizedPath~/signup)->filter(!user.subscriptions.b2b.licenceHolders)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(!user.uuid)->filter(page.referrer.normalizedPath!~/signup)->relTime(this_6_weeks))->interval(w)"
+    query: "@pct(signup:subscription-created->count()->filter(context.product=next)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_6_weeks),page:view->count(device.spoorId)->filter(context.product=next)->filter(page.location.normalizedPath~/signup)->filter(!user.subscriptions.b2b.licenceHolders)->filter(page.location.host~ft.com)->filter(user.geo.isFinancialTimesOffice=false)->filter(page.referrer.host~ft.com)->filter(!user.uuid)->filter(page.referrer.normalizedPath!~/signup)->relTime(this_6_weeks))->interval(w)"
     printer: LineChart
   -
     question: 4. How many successful subscriptions have we had (this 4 weeks)?
     name: subscriptions spoor
     interval: false
-    query: "signup:subscription-created->count()->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_4_weeks)->print(ColumnChart)"
+    query: "signup:subscription-created->count()->filter(context.product=next)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_4_weeks)->print(ColumnChart)"
     printer: ColumnChart
     colspan: 4
     datalabel: spoor
   -
     question: 5. How many Failed subscription events?
     name: failed
-    query: "signup:subscription-creation-failed->count()->filter(!user.uuid)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_6_weeks)->interval(w)"
+    query: "signup:subscription-creation-failed->count()->filter(context.product=next)->filter(!user.uuid)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_6_weeks)->interval(w)"
     printer: ColumnChart
     colspan: 4
     datalabel: Failed
@@ -41,7 +41,7 @@ charts:
     question: 6. What's our weekly bounce rate trend?
     name: bounces trend
     timeframe: this_6_weeks
-    query: "@pct(signup:bounce->count(),page:view->count(device.spoorId)->filter(page.location.normalizedPath~/signup)->filter(page.referrer.normalizedPath!~/signup)->filter(page.location.host~ft.com)->filter(page.referrer.host~ft.com))->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.uuid)->relTime(this_6_weeks)->interval(w)"
+    query: "@pct(signup:bounce->count()->filter(context.product=next),page:view->count(device.spoorId)->filter(context.product=next)->filter(page.location.normalizedPath~/signup)->filter(page.referrer.normalizedPath!~/signup)->filter(page.location.host~ft.com)->filter(page.referrer.host~ft.com))->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.uuid)->relTime(this_6_weeks)->interval(w)"
     datalabel: Bounces trend
     colspan: 3
     printer: LineChart
@@ -49,7 +49,7 @@ charts:
     question: 7. Existing users trying to subscribe?
     name: exists
     query: signup:notification
-            ->count(device.spoorId)
+            ->count(device.spoorId)->filter(context.product=next)
             ->filter(context.message.state=displayed)
             ->filter(context.message.isTestEvent=false)
             ->filter(context.message.type=known subscriber login prompt)
@@ -62,11 +62,11 @@ charts:
   -
     question: 8. Which payment methods are being used to purchse subscriptions?
     name: Payment Method
-    query: "signup:subscription-created->count()->group(context.paymentMethod)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_4_weeks)"
+    query: "signup:subscription-created->count()->filter(context.product=next)->group(context.paymentMethod)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_4_weeks)"
   -
     question: 9. What is the split of subscriptions per product type?
     name: Product Type
-    query: "signup:subscription-created->count()->group(context.offer.isTrial,context.offer.name)
+    query: "signup:subscription-created->count()->filter(context.product=next)->group(context.offer.isTrial,context.offer.name)
   ->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)
   ->filter(context.offer.name)->relTime(this_4_weeks)->print(BarChart)"
   -

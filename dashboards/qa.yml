@@ -9,7 +9,7 @@ charts:
     question: Which urls are erroring?
     name: error-pages
     printer: Table
-    query: "page:view->count()
+    query: "page:view->count()->filter(context.product=next)
       ->filter(context.errorStatus)
       ->group(page.location.path)
       ->group(context.errorStatus)
@@ -19,7 +19,7 @@ charts:
     question: Which browsers are visitors using
     name: browsers
     query: "page:view
-      ->count(device.spoorId)
+      ->count(device.spoorId)->filter(context.product=next)
       ->group(device.browserName)
       ->filter(device.isRobot=false)
       ->sortDesc()
@@ -30,7 +30,7 @@ charts:
   -
     question: Are any browsers showing unusually high opt out rates (excluding browsers with <5 opt outs)?
     name: opt-out-rate/by-browser
-    query: "@pct(site:optout->count(user.uuid)->cutoff(5),page:view->count(user.uuid))->group(device.browserName)->tidy(true)->top(10)->print(BarChart)"
+    query: "@pct(site:optout->count(user.uuid)->filter(context.product=next)->cutoff(5),page:view->count(user.uuid)->filter(context.product=next))->group(device.browserName)->tidy(true)->top(10)->print(BarChart)"
     interval: false
     colspan: 12 L4
     printer: BarChart
@@ -38,8 +38,8 @@ charts:
     question: Which browsers have a higher opt out rate now compared to 2 weeks ago (excluding browsers with <5 opt outs)?
     name: opt-out-rate/weekly-change-by-browser
     query: "@ratio(
-      @pct(site:optout->count(user.uuid)->cutoff(5),page:view->count(user.uuid))->relTime(this_2_weeks),
-      @pct(site:optout->count(user.uuid),page:view->count(user.uuid))->relTime(previous_2_weeks)
+      @pct(site:optout->count(user.uuid)->filter(context.product=next)->cutoff(5),page:view->count(user.uuid)->filter(context.product=next))->relTime(this_2_weeks),
+      @pct(site:optout->count(user.uuid)->filter(context.product=next),page:view->count(user.uuid)->filter(context.product=next))->relTime(previous_2_weeks)
     )->group(device.browserName)->tidy(true)"
     timeframe: false
     interval: false
@@ -49,21 +49,21 @@ charts:
   -
     question: What's the count per Safari Mobile version?
     name: safari/mobile,
-    query: "page:view->count(device.spoorId)->filter(device.browserName=Safari Mobile)->group(device.browserVersion.major)"
+    query: "page:view->count(device.spoorId)->filter(context.product=next)->filter(device.browserName=Safari Mobile)->group(device.browserVersion.major)"
     printer: Table
     timeframe: false
     interval: false
   -
     question: What's the count per BlackBerry Browser version?
     name: blackberry
-    query: "page:view->count(device.spoorId)->filter(device.browserName=BlackBerry Browser)->group(device.browserVersion.major)"
+    query: "page:view->count(device.spoorId)->filter(context.product=next)->filter(device.browserName=BlackBerry Browser)->group(device.browserVersion.major)"
     printer: Table
     timeframe: false
     interval: false
   -
     question: What's the count per Internet Explorer version?
     name: internet-explorer
-    query: "page:view->count(device.spoorId)->filter(device.browserName=Internet Explorer)->group(device.browserVersion.major)"
+    query: "page:view->count(device.spoorId)->filter(context.product=next)->filter(device.browserName=Internet Explorer)->group(device.browserVersion.major)"
     printer: Table
     timeframe: false
     interval: false
