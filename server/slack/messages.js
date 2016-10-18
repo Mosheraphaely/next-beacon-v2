@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 // Todo: Replace this array with the questions from the dashboards in /dashboards/.
 const messages = [

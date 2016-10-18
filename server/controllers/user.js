@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 // Render a group of charts in a dashboard
 const yaml = require('js-yaml');

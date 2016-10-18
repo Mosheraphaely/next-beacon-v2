@@ -1,6 +1,6 @@
 /* global google, isExtraction */
 
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 import './beacon-tracker';
 import './data/kq-extensions';

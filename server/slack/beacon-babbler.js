@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 const messages = require('./messages.js');
 const Botkit = require('botkit');

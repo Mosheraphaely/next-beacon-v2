@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 const keenIO		= require('keen.io');
 const flat		= require('flat');

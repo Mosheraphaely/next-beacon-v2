@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 // To see the logs, run this at a bash prompt:
 // heroku logs -ta ft-next-beacon-dashboard | grep S3O

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 // http://styleguide.ft.com/#colour-palette
 // https://github.com/Financial-Times/o-colors/blob/master/src/scss/_palette.scss

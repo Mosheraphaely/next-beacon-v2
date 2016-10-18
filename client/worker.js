@@ -1,5 +1,5 @@
 /* globals self, caches, clients */
-'use strict';
+'use strict'; //eslint-disable-line strict
 const cacheName = 'beacon-v2';
 
 function putInCache (request, res) {

@@ -1,6 +1,6 @@
 /* global $, activeEventCollection, KEEN_PROJECT_ID, KEEN_READ_KEY */
 
-'use strict';
+'use strict'; //eslint-disable-line strict
 
 import keenIO from 'keen.io';
 import flat from 'flat';
