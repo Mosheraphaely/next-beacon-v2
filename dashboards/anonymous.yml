@@ -64,13 +64,14 @@ charts:
     interval: false
   -
     question: 10. Anon users by Device Type
-    name: Device Type
+    name: Device Type Share
     query: "page:view->count(device.spoorId)->filter(context.product=next)->group(device.primaryHardwareType)->filter(!user.uuid)->filter(device.primaryHardwareType)->relTime(this_30_days)->print(PieChart)"
   -
     question: 11. Interactions % on Lionel Slider
     name: Lionel Slider
-    query: "@concat(@ratio(cta:click->count()->filter(context.product=next)->filter(click.dataTrackablePath~subscription-offer-prompt | subscribe),message:show->count()->filter(context.product=next)),@ratio(cta:click->count()->filter(context.product=next)->filter(click.dataTrackablePath~subscription-offer-prompt | close),message:show->count()->filter(context.product=next)))->filter(user.geo.isFinancialTimesOffice=false)->relabel(_headings,subscribe,close)->interval(d)"
+    query: "@concat(@ratio(cta:click->count()->filter(context.product=next)->filter(click.dataTrackablePath~subscription-offer-prompt | subscribe),message:show->count()->filter(context.product=next)),@ratio(cta:click->count()->filter(context.product=next)->filter(click.dataTrackablePath~subscription-offer-prompt | close),message:show->count()->filter(context.product=next)))->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.subscriptions.b2b.licenceHolders)->relabel(_headings,subscribe,close)->interval(d)"
   -
     question: 12. Interactions on Marketing Promo
     name: Marketing Promo
-    query: "@sum(cta:click->count(device.spoorId)->filter(context.product=next)->filter(context.domPath~marketing-promo),cta:click->count(device.spoorId)->filter(context.product=next)->filter(click.dataTrackablePath~marketing-promo))->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->relTime(last_2_months)->group(user.cohort.productNames)->print(Table)"
+    query: "@sum(cta:click->count(device.spoorId)->filter(context.domPath~marketing-promo),cta:click->count(device.spoorId)->filter(click.dataTrackablePath~marketing-promo))->filter(!user.subscriptions.b2b.licenceHolders)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_30_days)->interval(w)"
+    
