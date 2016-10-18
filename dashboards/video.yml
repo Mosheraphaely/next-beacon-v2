@@ -5,36 +5,57 @@ title: Video
 isPrimary: false
 charts:
   -
-    question: How many videos are started
-    name: start
-    query: video:playing->count()->filter(context.product=next)->filter(video.start)
-    datalabel: Videos started per day
-  -
-    question: How many videos are watched in full
-    name: full
-    query: video:ended->count()->filter(context.product=next)
-    datalabel: Videos in full per day
-  -
-    question: How many people views are through to the end (3d)
+    question: How many videos are watched in full?
     name: new
     query: "@concat(
-              video:playing->count()->filter(context.product=next)->filter(video.start),
+              video:playing->count()->filter(context.product=next)->filter(context.progress=0),
               video:ended->count()->filter(context.product=next)
               )->relabel(_headings, Video Started, Video Ended)"
     datalabel: new
-    timeframe: this_3_days
     printer: BarChart
     interval: false
   -
-    question: Where are we losing people (3d)
-    name: drop
-    query: video:progress->count()->filter(context.product=next)->group(context.progress)
+    question: How far into the video are users watching?
+    name: progress
+    query: "@concat(
+            video:progress
+            ->count()
+            ->filter(context.product=next)
+            ->filter(context.progress>=10)
+            ->group(context.progress),
+            video:ended->count()->filter(context.product=next))
+            ->print(ColumnChart)"
+    datalabel: Progress
     interval: false
-    datalabel: Drops
-    timeframe: this_3_days
-    printer: BarChart
   -
-    question: How many videos are watched beyond 25% (trueview)
-    name: trueview
-    query: video:progress->count()->filter(context.product=next)->filter(context.progress=25)
-    datalabel: Trueview per day
+    question: How many videos have ads?
+    name: ads
+    query: "@concat(
+              video:playing
+                ->count()
+                ->filter(context.product=next)
+                ->filter(context.progress=0),
+              video:adStart
+                ->count()
+                ->filter(context.product=next)
+              )
+              ->interval(d)
+              ->print(AreaChart)"
+    datalabel: Videos with ads
+    interval: false
+
+  -
+    question: How many ads are watched in full (and video content started)?
+    name: adsFull
+    query: "@concat(
+              video:adStart
+                ->count()
+                ->filter(context.product=next),
+              video:adComplete
+                ->count()
+                ->filter(context.product=next)
+              )
+              ->interval(d)
+              ->print(AreaChart)"
+    datalabel: Ads watched in full
+    interval: false
