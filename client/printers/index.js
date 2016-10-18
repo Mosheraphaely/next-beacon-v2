@@ -42,6 +42,6 @@ KeenQuery.definePrinter('TSV', function () {
 
 KeenQuery.definePrinter('YML', function () {
 	return (el) => {
-		el.innerHTML = `<pre>You ask too much! YAML printer will be ready soon :-)</pre>`;
+		el.innerHTML = '<pre>You ask too much! YAML printer will be ready soon :-)</pre>';
 	}
 });

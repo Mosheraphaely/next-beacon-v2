@@ -40,7 +40,7 @@ try {
 		}
 	});
 } catch (e) {
-	console.log(`Error loading dashboard file/s`);
+	console.log('Error loading dashboard file/s');
 }
 
 

@@ -46,7 +46,7 @@ module.exports = function(req, res) {
 				}
 
 				res.set('Content-Type: text/plain');
-				res.send(heading + "\n" + data);
+				res.send(heading + '\n' + data);
 			});
 
 		} else {

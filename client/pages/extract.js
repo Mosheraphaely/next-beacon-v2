@@ -20,15 +20,15 @@ window.outputUpdate = function(value) {
 	}
 
 	if (value < 1000) {
-		submitBtn.innerHTML = "Click here to extract data"
+		submitBtn.innerHTML = 'Click here to extract data'
 	} else if (value < 3000) {
-		submitBtn.innerHTML = "This'll take a while"
+		submitBtn.innerHTML = 'This\'ll take a while'
 	} else if (value < 6000) {
-		submitBtn.innerHTML = "Might as well go put the kettle on"
+		submitBtn.innerHTML = 'Might as well go put the kettle on'
 	} else if (value < 10000) {
-		submitBtn.innerHTML = "It should be done by Christmas"
+		submitBtn.innerHTML = 'It should be done by Christmas'
 	} else {
-		submitBtn.innerHTML = "Warning: This may crash your browser"
+		submitBtn.innerHTML = 'Warning: This may crash your browser'
 	}
 }
 
@@ -47,7 +47,7 @@ function updateHistory() {
 
 	let selectedProperties = getSelectedProperties().join(',');
 	pathnameSlugs[4] = selectedProperties;
-	history.pushState({}, "Extract", pathnameSlugs.join('/'));
+	history.pushState({}, 'Extract', pathnameSlugs.join('/'));
 }
 
 function buildExtractionQuery(){
@@ -63,7 +63,7 @@ function buildExtractionQuery(){
 	const query = new keenIO.Query('extraction', {
 		timeframe: timeframe,
 		event_collection: activeEventCollection,
-		property_names: `["${getSelectedProperties().join('","')}"]`,
+		property_names: `['${getSelectedProperties().join('','')}']`,
 		latest: document.querySelector('.extract__numberOfEvents').value || 100
 	});
 	return query;
@@ -127,8 +127,8 @@ function prepareDownloadCSV(response){
 		}
 
 		const csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(`${headings}\n${data}`);
-		$(".extract__download")
-			.removeClass("hidden")
+		$('.extract__download')
+			.removeClass('hidden')
 			.attr({
 				'download': filename,
 				'href': csvData
@@ -142,7 +142,7 @@ function punchItChewie() {
 	}
 	let selectedProperties = getSelectedProperties();
 	if (!selectedProperties || selectedProperties.length < 1) {
-		document.querySelector('.extract__submit').innerHTML = "⬅ Select some properties please";
+		document.querySelector('.extract__submit').innerHTML = '⬅ Select some properties please';
 		return false;
 	}
 	tableHead.innerHTML = '';

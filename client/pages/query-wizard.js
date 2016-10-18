@@ -38,7 +38,7 @@ module.exports = {
 			if (/^Queries must begin/.test(txt)) {
 				txt += '. Have you completed <b>Step 1</b> yet?';
 			}
-			output.innerHTML = `<span class="error">${txt}</span>`;
+			output.innerHTML = `<span class='error'>${txt}</span>`;
 		}
 
 		function sanitisedQuery () {
@@ -121,8 +121,8 @@ module.exports = {
 			let yaml =`
 	-
 	question: Enter a title for the chart in the form of a question
-	name: Enter a name for your chart to be used as its url e.g. "users/daily"
-	query: "${kq.toString()}"`;
+	name: Enter a name for your chart to be used as its url e.g. 'users/daily'
+	query: '${kq.toString()}'`;
 			if (queryConf.printer) {
 				yaml +=`
 	printer: ${queryConf.printer}`;
@@ -158,16 +158,16 @@ module.exports = {
 
 					// When adding timeframes or intervals, clear any existing ones first.
 					let method = ev.target.getAttribute('data-str').substr(0,7);
-					if (method === "absTime" || method === "relTime") {
+					if (method === 'absTime' || method === 'relTime') {
 						input.value = input.value.replace(/->absTime\(.*?\)/ig,'');
 						input.value = input.value.replace(/->relTime\(.*?\)/ig,'');
 					}
-					else if (method === "interva") {
+					else if (method === 'interva') {
 						input.value = input.value.replace(/->interval\(.*?\)/ig,'');
 					}
 
 					// When adding absolute time, default to today minus 14 days.
-					if (ev.target.getAttribute('data-str').substr(0,7) === "absTime") {
+					if (ev.target.getAttribute('data-str').substr(0,7) === 'absTime') {
 						let date = new Date();
 						let absTimeString = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 						date.setDate(date.getDate()-14);
