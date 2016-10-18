@@ -7,7 +7,7 @@ charts:
   -
     question: 1. How many subscribers does light signup get every day?
     name: lightsignup
-    query: "light-signup:subscribed->count()->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->interval(d)->relTime(this_6_weeks)->print(LineChart)"
+    query: "light-signup:subscribed->count()->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_6_weeks)->print(LineChart)"
     datalabel: "Subscribers p/day"
   -
     question: 2. Subscriber rate compared to anonymous article traffic served the LSU form?
@@ -18,7 +18,7 @@ charts:
   -
     question: 3. Which platform are users joining light signup via?
     name: lighsignup-product
-    query: "light-signup:subscribed->count(device.spoorId)->group(context.product)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->filter(context.product)->interval(d)"
+    query: "light-signup:subscribed->count(device.spoorId)->group(context.product)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->filter(context.product)"
     printer: StackedColumnChart
   -
     question: 4. Which topic from the LSU chooser are most popular ?
@@ -43,13 +43,13 @@ charts:
     printer: PieChart
     datalabel: "Device Share"
   -
-    question: 8. How many anon users are sent the light signup email? 
+    question: 8. How many anon users are sent the light signup email?
     name: emailsent
-    query: email:delivery->count()->group(context.product)->filter(context.product=light-signup)->filter(context.product)->interval(d)->print(LineChart)
+    query: email:delivery->count()->group(context.product)->filter(context.product=light-signup)->filter(context.product)->print(LineChart)
   -
     question: 9. How many anon users open the light signup email?
     name: emailopens
-    query: email:open->count()->filter(context.product=light-signup)->filter(user.geo.isFinancialTimesOffice=false)->interval(d)
+    query: email:open->count()->filter(context.product=light-signup)->filter(user.geo.isFinancialTimesOffice=false)
   -
     question: 10. How many anon users clicked on the light signup email?
     name: emailclicks

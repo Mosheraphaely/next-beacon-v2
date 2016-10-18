@@ -51,7 +51,7 @@ charts:
 )
   ->count()
   ->filter(device.primaryHardwareType=Mobile Phone)
-  ->relabel(_headings,No delay,less than 100ms,less than 500ms,less than 2s,success)->interval(d)"
+  ->relabel(_headings,No delay,less than 100ms,less than 500ms,less than 2s,success)"
     printer: StackedAreaChart
   -
     question: What is the success rate for comment loading on tablet
@@ -80,7 +80,7 @@ charts:
 )
   ->count()
   ->filter(device.primaryHardwareType=Tablet)
-  ->relabel(_headings,No delay,less than 100ms,less than 500ms,less than 2s,success)->interval(d)"
+  ->relabel(_headings,No delay,less than 100ms,less than 500ms,less than 2s,success)"
     printer: StackedAreaChart
   -
     question: What is the success rate for comment loading on desktop
@@ -109,7 +109,7 @@ charts:
 )
   ->count()
   ->filter(device.primaryHardwareType=Desktop)
-  ->relabel(_headings,No delay,less than 100ms,less than 500ms,less than 2s,success)->interval(d)"
+  ->relabel(_headings,No delay,less than 100ms,less than 500ms,less than 2s,success)"
     printer: StackedAreaChart
   -
     question: Proportion of different types of user on mobile

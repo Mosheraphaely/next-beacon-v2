@@ -426,7 +426,7 @@ charts:
             ->filter(campaign.myft.emailType=daily)
             ->filter(user.subscriptions.isStaff!=true)
             ->filter(time.day!=2016-06-25T00:00:00Z)
-            ->interval(d)"
+            "
     interval: false
     colspan: 12 M3
   -
@@ -452,7 +452,7 @@ charts:
               ->filter(campaign.myft.emailType=daily)
               ->filter(user.subscriptions.isStaff!=true)
               ->filter(time.day!=2016-06-25T00:00:00Z)
-              ->interval(d)"
+              "
     interval: false
     colspan: 12 M3
   -
@@ -541,7 +541,7 @@ charts:
             )
             ->filter(campaign.myft.emailType=instant)
             ->filter(user.subscriptions.isStaff!=true)
-            ->interval(d)"
+            "
     interval: false
     colspan: 12 M3
   -
@@ -565,7 +565,7 @@ charts:
             )
               ->filter(campaign.myft.emailType=instant)
               ->filter(user.subscriptions.isStaff!=true)
-              ->interval(d)"
+              "
     interval: false
     colspan: 12 M3
   -

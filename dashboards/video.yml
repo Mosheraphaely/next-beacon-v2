@@ -8,13 +8,11 @@ charts:
     question: How many videos are started
     name: start
     query: video:playing->count()->filter(video.start)
-    interval: d
     datalabel: Videos started per day
   -
     question: How many videos are watched in full
     name: full
     query: video:ended->count()
-    interval: d
     datalabel: Videos in full per day
   -
     question: How many people views are through to the end (3d)
@@ -39,5 +37,4 @@ charts:
     question: How many videos are watched beyond 25% (trueview)
     name: trueview
     query: video:progress->count()->filter(context.progress=25)
-    interval: d
     datalabel: Trueview per day
