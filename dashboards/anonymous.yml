@@ -8,14 +8,14 @@ charts:
     question: 1. Are weekly anonymous visitor counts increasing?
     name: weekly
     query: page:view->count(device.spoorId)->filter(context.product=next)->filter(!user.uuid)->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.subscriptions.b2b.licenceHolders)
-    timeframe: last_12_weeks
+    timeframe: previous_12_weeks
     interval: w
     datalabel: Anonymous visitors per week
   -
     question: 2. Are daily anonymous visitor counts increasing?
     name: daily
     query: page:view->count(device.spoorId)->filter(context.product=next)->filter(!user.uuid)->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.subscriptions.b2b.licenceHolders)
-    timeframe: last_4_weeks
+    timeframe: previous_4_weeks
     interval: d
     datalabel: Anonymous visitors per day
   -
