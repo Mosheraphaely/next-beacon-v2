@@ -47,7 +47,7 @@ charts:
     # linebreak
   -
     break: true
-    question: How many follow clicks were there? (old + new click events)
+    question: How many follow clicks were there?
     name: onsite/followclicks
     query: "@sum(
               cta:click
@@ -62,7 +62,7 @@ charts:
     interval: false
     colspan: 12 M4 L3
   -
-    question: How many follow clicks were there each day? (old + new click events)
+    question: How many follow clicks were there each day?
     name: onsite/followclicksbyday
     query: "@sum(
               cta:click
@@ -78,31 +78,19 @@ charts:
   -
     question: Where are the most successful follow buttons?
     name: onsite/follow/good
-    query: cta:click->count()->filter(context.product=next)->group(context.domPath)->filter(context.target=follow)->top(10)->filter(user.subscriptions.isStaff!=true)
-    printer: BarChart
-    interval: false
-    colspan: 12 M6 L3
-  -
-    question: Where are the most successful follow buttons? (new click events)
-    name: onsite/follow/good/new
-    query: "cta:click
-			  ->count()->filter(context.product=next)
-			  ->group(click.dataTrackablePath)
-			  ->filter(click.target=follow)
-			  ->top(10)
-			  ->filter(user.subscriptions.isStaff!=true)"
+    query: cta:click
+             ->count()
+             ->group(click.dataTrackablePath)
+             ->filter(context.product=next)
+             ->filter(click.target=follow)
+             ->filter(user.subscriptions.isStaff!=true)
+             ->filter(click.dataTrackablePath)
+             ->top(10)
     printer: BarChart
     interval: false
     colspan: 12 M6 L3
   -
     question: Where are the least successful follow buttons?
-    name: onsite/follow/bad
-    query: cta:click->count()->filter(context.product=next)->group(context.domPath)->filter(context.target=follow)->bottom(10)->filter(user.subscriptions.isStaff!=true)
-    printer: BarChart
-    interval: false
-    colspan: 12 M6 L3
-  -
-    question: Where are the least successful follow buttons? (new click events)
     name: onsite/follow/bad/new
     query: "cta:click
 			  ->count()->filter(context.product=next)
@@ -118,13 +106,6 @@ charts:
 
   -
     question: How are save buttons performing?
-    name: onsite/save/good
-    query: cta:click->count()->filter(context.product=next)->group(context.domPath)->filter(context.domPath~save-for-later)->sortDesc()->filter(user.subscriptions.isStaff!=true)
-    printer: BarChart
-    interval: false
-    colspan: 12 M6 L3
-  -
-    question: How are save buttons performing? (new click events)
     name: onsite/save/good/new
     query: "cta:click
 			  ->count()->filter(context.product=next)
@@ -168,7 +149,7 @@ charts:
 # Collections
 
     break: true
-    question: "Collections: How many Follow All clicks were there? (old + new click events)"
+    question: "Collections: How many Follow All clicks were there?"
     name: onsite/collections/followsthisweek
     query: "@sum(
 			  cta:click
@@ -185,7 +166,7 @@ charts:
     interval: false
     colspan: 12 M4
   -
-    question: "Collections: How many Follow All clicks over time? (old + new click events)"
+    question: "Collections: How many Follow All clicks over time?"
     name: onsite/collections/followsbyday
     query: "@sum(
 			  cta:click
@@ -201,7 +182,7 @@ charts:
 			  ->filter(user.subscriptions.isStaff!=true)"
     colspan: 12 M8
   -
-    question: "Collections: How many topic link clicks? (old + new click events)"
+    question: "Collections: How many topic link clicks?"
     name: onsite/collections/topiclinksthisweek
     query: "@sum(
   cta:click
@@ -216,7 +197,7 @@ charts:
     interval: false
     colspan: 12 M3
   -
-    question: "Collections: How many topic link clicks over time? (old + new click events)"
+    question: "Collections: How many topic link clicks over time?"
     name: onsite/collections/topiclinksbyday
     query: "@sum(
   cta:click
@@ -230,7 +211,7 @@ charts:
   ->filter(user.subscriptions.isStaff!=true)"
     colspan: 12 M6
   -
-    question: "Collections: How many “I like collections” link clicks? (old + new click events)"
+    question: "Collections: How many “I like collections” link clicks?"
     name: onsite/collections/likesthisweek
     query: "@sum(
   cta:click
@@ -244,20 +225,11 @@ charts:
   ->filter(user.subscriptions.isStaff!=true)"
     interval: false
     colspan: 12 M3
-  -
 
 # Explore page
-
-    break: true
-    question: "Explore page: How are the recommended slices performing (by follows)?"
-    name: onsite/explore/slices/follows
-    query: cta:click->count()->filter(context.product=next)->filter(context.domPath~page:myft-page/explore)->filter(context.domPath~recommended-slice)->filter(context.target=follow)->filter(context.domPressed=false)->group(context.domPath)->filter(user.subscriptions.isStaff!=true)
-    printer: BarChart
-    interval: false
-    colspan: 12 L6
   -
     break: true
-    question: "Explore page: How are the recommended slices performing (by follows)? (new click events)"
+    question: "Explore page: How are the recommended slices performing (by follows)?"
     name: onsite/explore/slices/follows/new
     query: "cta:click
 			  ->count()->filter(context.product=next)
@@ -272,13 +244,6 @@ charts:
     colspan: 12 L6
   -
     question: "Explore page: How are the recommended slices performing (by article clicks)?"
-    name: onsite/explore/slices/articles
-    query: cta:click->count()->filter(context.product=next)->filter(context.domPath~page:myft-page/explore)->filter(context.domPath~recommended-slice)->filter(context.target=article)->group(context.domPath)->filter(user.subscriptions.isStaff!=true)
-    printer: BarChart
-    interval: false
-    colspan: 12 L6
-  -
-    question: "Explore page: How are the recommended slices performing (by article clicks)? (new click events)"
     name: onsite/explore/slices/articles/new
     query: "cta:click
   ->count()->filter(context.product=next)
@@ -292,13 +257,6 @@ charts:
     colspan: 12 L6
   -
     question: "Explore page: How are inbound link clicks performing?"
-    name: onsite/explore/inbound
-    query: cta:click->count()->filter(context.product=next)->filter(context.target=my-topics)->group(context.domPath)->filter(user.subscriptions.isStaff!=true)
-    printer: BarChart
-    interval: false
-    colspan: 12 L6
-  -
-    question: "Explore page: How are inbound link clicks performing? (new click events)"
     name: onsite/explore/inbound/new
     query: "cta:click
 			  ->count()->filter(context.product=next)
@@ -309,7 +267,7 @@ charts:
     interval: false
     colspan: 12 L6
   -
-    question: "Explore page: How many clicks on “Change industry”? (old + new click events)"
+    question: "Explore page: How many clicks on “Change industry”?"
     name: onsite/explore/change-industry
     query: "@sum(
 			  cta:click
@@ -598,7 +556,7 @@ charts:
 # HOMEPAGE AND ARTICLE PROMOS
 
   -
-    question: "How many users became new myFT users from the homepage myft component? (old + new click events)"
+    question: "How many users became new myFT users from the homepage myft component?"
     name: dashboard/myft/homepage-and-article-promos/homepage-follows-new
     query: "@sum(
 			  cta:click
@@ -612,7 +570,7 @@ charts:
 			  ->filter(user.myft.isMyFtUser!=true)"
     colspan: 12 L4
   -
-    question: "How many existing myFT users followed topics from the homepage myft component? (old + new click events)"
+    question: "How many existing myFT users followed topics from the homepage myft component?"
     name: dashboard/myft/homepage-and-article-promos/homepage-follows-existing
     query: "@concat(
 			  cta:click
@@ -626,7 +584,7 @@ charts:
 			  ->filter(user.myft.isMyFtUser=true)"
     colspan: 12 L4
   -
-    question: "How many article clicks happened on the homepage myFT component? (old + new click events)"
+    question: "How many article clicks happened on the homepage myFT component?"
     name: dashboard/myft/homepage-and-article-promos/article-clicks
     query: "@sum(
   cta:click
@@ -639,7 +597,7 @@ charts:
   ->count()->filter(context.product=next)"
     colspan: 12 L4
   -
-    question: "How many users became new myFT users from the article page myft header promo? (old + new click events)"
+    question: "How many users became new myFT users from the article page myft header promo?"
     name: dashboard/myft/homepage-and-article-promos/article-follows-new
     query: "@sum(
   cta:click
@@ -653,7 +611,7 @@ charts:
   ->filter(user.myft.isMyFtUser!=true)"
     colspan: 12 L6
   -
-    question: "How many existing myFT users followed topics from the article page myft header promo? (old + new click events)"
+    question: "How many existing myFT users followed topics from the article page myft header promo?"
     name: dashboard/myft/homepage-and-article-promos/article-follows-existing
     query: "@sum(
   cta:click
