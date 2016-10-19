@@ -45,12 +45,12 @@ charts:
   -
     question: 8. How many anon users are sent the light signup email?
     name: emailsent
-    query: email:delivery->count()->filter(context.product=next)->group(context.product)->filter(context.product=light-signup)->filter(context.product)->print(LineChart)
+    query: email:delivery->count()->group(context.product)->filter(context.product=light-signup)->filter(context.product)->interval(d)->relTime(previous_14_days)->filter(user.geo.isFinancialTimesOffice=false)
   -
     question: 9. How many anon users open the light signup email?
     name: emailopens
-    query: email:open->count()->filter(context.product=next)->filter(context.product=light-signup)->filter(user.geo.isFinancialTimesOffice=false)
+    query: email:open->count()->group(context.product)->filter(context.product=light-signup)->filter(context.product)->interval(d)->relTime(previous_14_days)->filter(user.geo.isFinancialTimesOffice=false)
   -
     question: 10. How many anon users clicked on the light signup email?
     name: emailclicks
-    query: email:click->filter(context.product=light-signup)->count()->filter(context.product=next)->filter(user.geo.isFinancialTimesOffice=false)
+    query: email:click->count()->group(context.product)->filter(context.product=light-signup)->filter(context.product)->interval(d)->relTime(previous_14_days)->filter(user.geo.isFinancialTimesOffice=false)
