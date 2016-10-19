@@ -155,6 +155,7 @@ charts:
               page:view->count()->filter(context.product=next)
             )
               ->filter(page.location.type=article)
+              ->filter(user.uuid)
               ->filter(user.subscriptions.isStaff!=true)"
     colspan: 12 L3
   -
