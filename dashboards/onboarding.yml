@@ -168,7 +168,6 @@ charts:
                 cta:click
                   ->count()->filter(context.product=next)
               )
-                ->filter(click.dataTrackablePath~ tour-tip)
                 ->filter(click.dataTrackablePath~ dismiss)
                 ->filter(click.dataTrackablePath!~tour-page)
                 ->filter(page.location.type)
