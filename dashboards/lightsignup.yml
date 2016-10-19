@@ -32,25 +32,21 @@ charts:
     printer: Table
     datalabel: "Conversion all-time"
   -
-    question: 6. How many visits to the subscription funnel does light signup generate?
-    name: lightsignup-funnel
-    query: email:click->count(context.deviceId)->filter(context.product=next)->filter(context.product="light-signup")->filter(context.targetLinkUrl~"801043")
-    datalabel: "Funnel clicks p/day"
-  -
-    question: 7. LSU subscription by Device
+    question: 6. LSU subscription by Device
     name: lightsignup-device
     query: "light-signup:subscribed->count()->filter(context.product=next)->group(device.primaryHardwareType)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->print(PieChart)"
     printer: PieChart
     datalabel: "Device Share"
   -
-    question: 8. How many anon users are sent the light signup email?
+    question: 7. How many anon users are sent the light signup email?
     name: emailsent
-    query: email:delivery->count()->group(context.product)->filter(context.product=light-signup)->filter(context.product)->interval(d)->relTime(previous_14_days)->filter(user.geo.isFinancialTimesOffice=false)
+    query: email:delivery->count()->group(context.product)->filter(context.product=light-signup)->interval(d)->relTime(previous_14_days)->filter(user.geo.isFinancialTimesOffice=false)
   -
-    question: 9. How many anon users open the light signup email?
+    question: 8. How many anon users open the light signup email?
     name: emailopens
-    query: email:open->count()->group(context.product)->filter(context.product=light-signup)->filter(context.product)->interval(d)->relTime(previous_14_days)->filter(user.geo.isFinancialTimesOffice=false)
+    query: email:open->count()->group(context.product)->filter(context.product=light-signup)->interval(d)->relTime(previous_14_days)->filter(user.geo.isFinancialTimesOffice=false)
   -
-    question: 10. How many anon users clicked on the light signup email?
+    question: 9. How many anon users clicked on the light signup email?
     name: emailclicks
-    query: email:click->count()->group(context.product)->filter(context.product=light-signup)->filter(context.product)->interval(d)->relTime(previous_14_days)->filter(user.geo.isFinancialTimesOffice=false)
+    query: email:click->count()->group(context.product)->filter(context.product=light-signup)->interval(d)->relTime(previous_14_days)->filter(user.geo.isFinancialTimesOffice=false)
+    
