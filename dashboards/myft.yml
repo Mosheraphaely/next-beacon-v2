@@ -136,7 +136,7 @@ charts:
     interval: false
     colspan: 12 M6 L3
   -
-    question: What % of article views were from a myFT source?
+    question: What % of signed-in users article views were from a myFT source?
     name: onsite/articleviews
     query: "@pct(
               page:view->count()->filter(context.product=next)->filter(campaign.myft.source),
@@ -148,7 +148,7 @@ charts:
     interval: false
     colspan: 12 M6 L2
   -
-    question: What % of article views were from a myFT source over time?
+    question: What % of signed-in users article views were from a myFT source over time?
     name: onsite/articleviewsovertime
     query: "@pct(
               page:view->count()->filter(context.product=next)->filter(campaign.myft.source),
