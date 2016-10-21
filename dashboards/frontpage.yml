@@ -56,12 +56,6 @@ charts:
     query: "page:view->count(user.uuid)->filter(context.product=next)->filter(context.app=front-page)->group(page.referrer.websiteType)"
     printer: PieChart
 
-  -
-    question: What are the traffic sources to the homepage for anonymous users? (null = Direct Traffic)
-    name: referrers/sources/anonymous
-    query: "page:view->count(device.spoorId)->filter(context.product=next)->filter(!user.uuid)->filter(context.app=front-page)->group(page.referrer.websiteType)"
-    printer: PieChart
-
   # SCROLL DEPTH --------------------------------------------------
   -
     question: What percentage of homepage users are scrolling to each section?
@@ -212,6 +206,21 @@ charts:
     name: ctr/average/clicks/all
     query: "@ratio( cta:click->count()->filter(context.product=next)->filter(user.uuid), page:view->count(user.uuid)->filter(context.product=next) )->filter(context.app=front-page)"
     datalabel: Average clicks per user
+  -
+    question: how many visits (sessions) are known users making a day?
+    name: session/average/pageviews/all
+    query: "@ratio(
+  page:view
+    ->count(spoorInfo.sessionId)
+    ->filter(context.product=next),
+  page:view
+    ->count(device.spoorId)
+    ->filter(context.product=next)
+)
+  ->filter(context.app=front-page)
+  ->filter(user.uuid)
+  ->interval(d)"
+    datalabel: Average clicks per user
 
   # PERFORMANCE --------------------------------------------------
   -
@@ -232,9 +241,4 @@ charts:
     query: "@pct( page:view->count()->filter(context.product=next)->group(device.browserName), page:view->count()->filter(context.product=next) )->filter(context.app=front-page)->filter(user.uuid)->filter(device.browserName)->filter(device.browserName!=false)->sortDesc()"
     printer: BarChart
     datalabel: Percentage of frontpage visits
-  -
-    question: Which browsers are used for homepage visits (number)?
-    name: browsers/visits/total
-    query: page:view->count()->filter(context.product=next)->filter(context.app=front-page)->filter(user.uuid)->filter(device.browserName)->filter(device.browserName!=false)->group(device.browserName)->sortDesc()
-    printer: BarChart
-    datalabel: Number of frontpage visits
+
