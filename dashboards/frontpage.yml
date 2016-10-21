@@ -241,4 +241,3 @@ charts:
     query: "@pct( page:view->count()->filter(context.product=next)->group(device.browserName), page:view->count()->filter(context.product=next) )->filter(context.app=front-page)->filter(user.uuid)->filter(device.browserName)->filter(device.browserName!=false)->sortDesc()"
     printer: BarChart
     datalabel: Percentage of frontpage visits
-
