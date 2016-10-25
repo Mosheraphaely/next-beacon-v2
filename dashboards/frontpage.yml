@@ -207,6 +207,7 @@ charts:
     name: ctr/average/clicks/all
     query: "@ratio( cta:click->count()->filter(context.product=next)->filter(user.uuid), page:view->count(user.uuid)->filter(context.product=next) )->filter(context.app=front-page)"
     datalabel: Average clicks per user
+    
   -
     question: how many visits (sessions) are known users making a day?
     name: session/average/pageviews/all
@@ -229,11 +230,13 @@ charts:
     query: "@pct( page:view->count()->filter(context.product=next)->group(device.browserName), page:view->count()->filter(context.product=next) )->filter(context.app=front-page)->filter(user.uuid)->filter(device.browserName)->filter(device.browserName!=false)->sortDesc()"
     printer: BarChart
     datalabel: Percentage of frontpage visits
+    
   -
     question: How many views does the homepage recieve?
     name: views
     query: "@concat(page:view->count()->filter(context.product=next)->filter(device.spoorId)->filter(context.app=front-page),page:view->count()->filter(context.product=next)->filter(device.spoorId)->filter(user.uuid)->filter(context.app=front-page),page:view->count()->filter(context.product=next)->filter(device.spoorId)->filter(!user.uuid)->filter(context.app=front-page))->relTime(previous_14_days)->relabel(_headings,All,Logged In,Anonymous)"
     datalabel: Total
+    
   -
     question: Are daily homepage member counts increasing?
     name: members/daily
