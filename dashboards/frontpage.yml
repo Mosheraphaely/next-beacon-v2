@@ -36,7 +36,7 @@ charts:
   -
     question: what is our CC count?
     name: content-views/referrer-frontpage
-    query:"page:view
+    query: "page:view
   ->count()
   ->filter(context.product=next)
   ->filter(content.isCountedContent=true)
