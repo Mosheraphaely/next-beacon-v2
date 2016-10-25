@@ -6,7 +6,7 @@ isPrimary: true
 charts:
 
   # PRE-PREPARED --------------------------------------------------
-    -
+  -
     question: What percentage of total page views are of the homepage?
     name: views/proportion
     query: "@concat(@pct(page:view->count()->filter(context.product=next)->filter(device.spoorId)->filter(context.app=front-page),page:view->count()->filter(context.product=next)->filter(device.spoorId)),@pct(page:view->count()->filter(context.product=next)->filter(device.spoorId)->filter(user.uuid)->filter(context.app=front-page),page:view->count()->filter(context.product=next)->filter(device.spoorId)->filter(user.uuid)),@pct(page:view->count()->filter(context.product=next)->filter(device.spoorId)->filter(!user.uuid)->filter(context.app=front-page),page:view->count()->filter(context.product=next)->filter(device.spoorId)->filter(!user.uuid)))->relTime(previous_14_days)->relabel(_headings,All,Logged In,Anonymous)"
