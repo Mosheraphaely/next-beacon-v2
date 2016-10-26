@@ -23,16 +23,6 @@ charts:
             ->filter(page.referrer.host=www.ft.com)
             ->filter(page.referrer.normalizedPath!~/signup)
   -
-    question: Visitors clicking on 'Buy' button
-    name: submit
-    query: cta:click
-      ->count(device.spoorId)->filter(context.product=next)
-      ->filter(page.location.normalizedPath~/signup)
-      ->filter(page.location.host=www.ft.com)
-      ->filter(user.geo.isFinancialTimesOffice=false)
-      ->filter(page.referrer.host=www.ft.com)
-      ->filter(click.dataTrackablePath~signup-form | submit)
-  -
     question: Barrier visitors
     name: barriers
     query: barrier:view
