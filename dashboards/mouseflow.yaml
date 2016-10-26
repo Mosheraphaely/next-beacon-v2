@@ -5,6 +5,14 @@ title: Mouseflow
 isPrimary: true
 charts:
   -
+    question: Signup form submissions
+    name: subscribe
+    query: signup:subscription-created
+            ->count()
+            ->filter(context.product=next)
+            ->filter(context.isTestEvent=false)
+            ->filter(user.geo.isFinancialTimesOffice=false)
+  -
     question: Signup form visitors
     name: signup
     query: page:view

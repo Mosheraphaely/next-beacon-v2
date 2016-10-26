@@ -15,9 +15,9 @@ function updateMessages (messagesEl, source) {
 
 	messagesEl.classList.remove('hidden');
 
-	const target = source === 'mouseflow' ? '<b>5,000 recordings</b>' : '<b>50,000 events</b>'
+	const target = source === 'mouseflow' ? '<b>5,000 recordings</b>' : '<b>20,000 events</b>'
 
-	messagesEl.innerHTML = `Fetching the latest ${target} over the past <b>3 days</b> from <b>${source}</b>...`;
+	messagesEl.innerHTML = `Fetching the latest ${target} over the past <b>2 days</b> from <b>${source}</b>...`;
 
 	progressGenerator = setInterval(function () {
 		messagesEl.innerHTML += '.';
@@ -68,18 +68,18 @@ export function getRecordings ({el, queryStr, messagesEl, userTimeframe, configu
 	}
 
 	const query = new keenIO.Query('extraction', {
-		timeframe: 'this_3_days',
+		timeframe: 'this_2_days',
 		event_collection: kq.query.event_collection,
 		target_property: kq.query.target_property,
 		filters: kq.filters,
-		latest: 50000,
+		latest: 20000,
 		property_names: ['device.spoorId']
 	});
 
 	let period;
 
 	try {
-		const timeframe = userTimeframe || kq.timeframe || 'this_3_days';
+		const timeframe = userTimeframe || kq.timeframe || 'this_2_days';
 		period = parseInt(timeframe.match(/\d+/)[0]);
 	}
 	catch (e) {
