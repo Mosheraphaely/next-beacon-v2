@@ -6,7 +6,7 @@ isPrimary: true
 charts:
   -
     question: Signup form submissions
-    name: subscribe
+    name: signup-subscribe
     query: signup:subscription-created
             ->count()
             ->filter(context.product=next)
