@@ -72,7 +72,7 @@ export function getRecordings ({el, queryStr, messagesEl, userTimeframe, configu
 		event_collection: kq.query.event_collection,
 		target_property: kq.query.target_property,
 		filters: kq.filters,
-		limit: 50000,
+		latest: 50000,
 		property_names: ['device.spoorId']
 	});
 
