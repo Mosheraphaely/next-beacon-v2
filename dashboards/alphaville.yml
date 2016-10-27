@@ -1,0 +1,11 @@
+# Note: Any strings begining with @ or % must be wrapped in quote marks
+---
+id: alphaville
+title: alphaville
+isPrimary: true
+charts:
+  -
+    question: 1. Unique page views
+    name: unique page views
+    query: page:view->count(user.uuid)->group(device.primaryHardwareType)->filter(context.app=alphaville)->interval(d)
+    
