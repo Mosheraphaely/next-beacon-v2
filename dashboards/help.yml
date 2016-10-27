@@ -1,6 +1,6 @@
 # Note: Any strings begining with @ or % must be wrapped in quote marks
 ---
-id: Help
+id: help
 title: Help
 isPrimary: true
 charts:
