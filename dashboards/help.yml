@@ -5,7 +5,7 @@ title: Help
 isPrimary: true
 charts:
   -
-    question: 1. Are weekly anonymous visitor counts increasing?
-    name: weekly
-    query: page:view->count(device.spoorId)->filter(context.product=next)->filter(!user.uuid)->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.subscriptions.b2b.licenceHolders)
+    question: 1. Unique page views (by Device) 
+    name: page views by device
+    query: page:view->count(user.uuid)->filter(context.app=help)->interval(d)->group(device.primaryHardwareType)
     
