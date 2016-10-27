@@ -1,0 +1,11 @@
+# Note: Any strings begining with @ or % must be wrapped in quote marks
+---
+id: Help
+title: Help
+isPrimary: true
+charts:
+  -
+    question: 1. Are weekly anonymous visitor counts increasing?
+    name: weekly
+    query: page:view->count(device.spoorId)->filter(context.product=next)->filter(!user.uuid)->filter(user.geo.isFinancialTimesOffice=false)->filter(!user.subscriptions.b2b.licenceHolders)
+    
