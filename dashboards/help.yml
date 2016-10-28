@@ -8,12 +8,10 @@ charts:
     question: 1. Unique page views (by Device) 
     name: page views by device
     query: page:view->count(user.uuid)->filter(context.app=help)->interval(d)->group(device.primaryHardwareType)
-    
   -
     question: 2. Start Chat CTA unique (by Device)
     name: start chat cta device
     query: cta:click->count(user.uuid)->group(device.primaryHardwareType)->filter(click.dataTrackablePath~chat)->interval(d)
-    
   -
     question: 3. Start Chat CTA unique (by Page)
     name: start chat cta page
