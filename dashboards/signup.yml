@@ -45,7 +45,7 @@ charts:
     colspan: 3
     printer: LineChart
   -
-    question: 7. Existing users trying to subscribe?
+    question: 7. Existing users receiving the Good News notification message?
     name: exists
     query: signup:notification
             ->count(device.spoorId)->filter(context.product=next)->group(user.cohort.productNames)
