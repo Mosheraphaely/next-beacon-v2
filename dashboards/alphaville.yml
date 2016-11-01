@@ -8,4 +8,7 @@ charts:
     question: 1. Unique page views
     name: unique page views
     query: page:view->count(user.uuid)->group(device.primaryHardwareType)->filter(context.app=alphaville)->interval(d)
-    
+  -
+    question: 2. Top 20 pages views (last 30 days)
+    name: top page views 30 days
+    query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=alphaville)->filter(device.primaryHardwareType)->filter(page.location.pathname~"/")->top(10)->relTime(previous_30_days)->print(BarChart)
