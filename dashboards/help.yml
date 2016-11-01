@@ -16,4 +16,12 @@ charts:
     question: 3. Start Chat CTA unique (by Page)
     name: start chat cta page
     query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~chat)->interval(d)->group(click.dataTrackablePath)->print(LineChart)
+  -
+    question: 4. Contact US CTA unique (by Device)
+    name: contact us cta device
+    query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~contact)->interval(d)->group(device.primaryHardwareType)
+  -
+    question: 5. Contact US CTA unique (by Page)
+    name: contact us cta page
+    query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~contact)->interval(d)->group(click.dataTrackablePath)->print(LineChart)
     
