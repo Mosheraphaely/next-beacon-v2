@@ -33,7 +33,7 @@ charts:
   -
     question: 5. How many successful subscriptions have we had (this 4 weeks)?
     name: subscriptions by cohort poor
-    query: signup:subscription-created->count()
+    query: "signup:subscription-created->count()
             ->group(user.cohort.productNames)
             ->filter(context.product=next)
             ->filter(context.isTestEvent=false)
