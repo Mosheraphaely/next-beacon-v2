@@ -29,7 +29,7 @@ charts:
     query: "signup:subscription-created->count()->filter(context.product=next)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(this_4_weeks)->print(ColumnChart)"
     printer: ColumnChart
     colspan: 4
-    datalabel: spoor  
+    datalabel: spoor
   -
     question: 5. How many successful subscriptions have we had (this 4 weeks)?
     name: subscriptions by cohort poor
@@ -39,7 +39,7 @@ charts:
             ->filter(context.isTestEvent=false)
             ->filter(user.geo.isFinancialTimesOffice=false)
             ->relTime(this_5_months)->interval(month)->print(StackedBarChart)"
-   -
+  -
     question: 6. How many Failed subscription events?
     name: failed
     query: "signup:subscription-creation-failed->count()->filter(context.product=next)->filter(!user.uuid)->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)->relTime(previous_6_weeks)->interval(w)"
@@ -75,8 +75,8 @@ charts:
     question: 10. What is the split of subscriptions per product type?
     name: Product Type
     query: "signup:subscription-created->count()->filter(context.product=next)->group(context.offer.isTrial,context.offer.name)
-  ->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)
-  ->filter(context.offer.name)->relTime(this_4_weeks)->print(BarChart)"
+          ->filter(context.isTestEvent=false)->filter(user.geo.isFinancialTimesOffice=false)
+          ->filter(context.offer.name)->relTime(this_4_weeks)->print(BarChart)"
   -
     question: 11. Zuora response performance BUY NOW ?
     name: Submit CC and DD
