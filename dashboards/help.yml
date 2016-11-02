@@ -28,4 +28,8 @@ charts:
     question: 7. Search button (daily)
     name: contact us cta page
     query: cta:click->count()->filter(click.dataTrackablePath~home | search)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
+  -
+    question: 8. Top Page views
+    name: top page views
+    query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=help)->filter(page.location.pathname~/)->top(20)->print(Table)
     
