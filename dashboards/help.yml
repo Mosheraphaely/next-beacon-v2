@@ -19,11 +19,7 @@ charts:
   -
     question: 4. Contact US CTA unique (by Device)
     name: contact us cta device
-    query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~contact)->interval(d)->group(device.primaryHardwareType)
-  -
-    question: 5. Contact US CTA unique (by Page)
-    name: contact us cta page
-    query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~contact)->interval(d)->group(click.dataTrackablePath)->print(LineChart)
+    query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~home | contact)->interval(d)->group(device.primaryHardwareType)
   -
     question: 6. Top pages viewed (daily)
     name: contact us cta page
