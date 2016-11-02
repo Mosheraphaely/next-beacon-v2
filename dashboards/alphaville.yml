@@ -28,4 +28,8 @@ charts:
     question: 6. CTA on Drawer Toggle (sticky)
     name: cta drawer toggle sticky
     query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~alphaville | header-sticky | drawer-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
+  -
+    question: 7. Page Views - top pages
+    name: page views top pages
+    query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=alphaville)->filter(page.location.pathname~/)->top(10)->print(BarChart)
     
