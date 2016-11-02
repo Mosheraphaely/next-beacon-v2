@@ -24,4 +24,8 @@ charts:
     question: 5. Contact US CTA unique (by Page)
     name: contact us cta page
     query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~contact)->interval(d)->group(click.dataTrackablePath)->print(LineChart)
+  -
+    question: 6. Top pages viewed (daily)
+    name: contact us cta page
+    query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=help)->filter(page.location.pathname~/)->interval(d)->print(LineChart)
     
