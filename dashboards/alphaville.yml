@@ -9,7 +9,7 @@ charts:
     name: unique page views
     query: page:view->count(user.uuid)->group(device.primaryHardwareType)->filter(context.app=alphaville)->interval(d)
   -
-    question: 2. Top 20 pages views (last 30 days)
-    name: top page views 30 days
-    query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=alphaville)->filter(device.primaryHardwareType)->filter(page.location.pathname~"/")->print(Table)
+    question: 2. Top page views (daily)
+    name: top page views daily
+    query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=alphaville)->filter(page.location.pathname~"/")->interval(d)->print(LineChart)
     
