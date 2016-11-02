@@ -32,4 +32,6 @@ charts:
     question: 7. Page Views - top pages
     name: page views top pages
     query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=alphaville)->filter(page.location.pathname~/)->top(10)->print(BarChart)
+    printer: BarChart
+    interval: false
     
