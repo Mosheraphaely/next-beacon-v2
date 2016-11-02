@@ -15,5 +15,5 @@ charts:
   -
     question: 3. CTA on Grid View vs List View
     name: cta list view
-    query:cta:click->count(device.spoorId)->filter(click.dataTrackablePath~alphaville | header-nav:desktop | home-toggle |)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
+    query: cta:click->count(device.spoorId)->filter(click.dataTrackablePath~alphaville | header-nav:desktop | home-toggle |)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
     
