@@ -26,7 +26,7 @@ charts:
     query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=help)->filter(page.location.pathname~/)->interval(d)->print(LineChart)
   -
     question: 7. Search button (daily)
-    name: contact us cta page
+    name: search button daily
     query: cta:click->count(user.uuid)->group(device.primaryHardwareType)->filter(click.dataTrackablePath~home | search)->filter(device.primaryHardwareType)->interval(d)
   -
     question: 8. Top Page views
