@@ -7,31 +7,27 @@ charts:
   -
     question: 1. Unique page views
     name: unique page views
-    query: page:view->count(user.uuid)->group(device.primaryHardwareType)->filter(context.app=alphaville)->interval(d)
+    query: page:view->count(user.uuid)->filter(user.subscriptions.isStaff!=true)->group(device.primaryHardwareType)->filter(context.app=alphaville)->interval(d)
   -
-    question: 2. Top page views (daily)
-    name: top page views daily
-    query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=alphaville)->filter(page.location.pathname~"/")->interval(d)->print(LineChart)
-  -
-    question: 3. CTA on Grid View vs List View
+    question: 2. CTA on Grid View vs List View
     name: cta list view
-    query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~alphaville | header-nav:desktop | home-toggle |)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
+    query: cta:click->count(user.uuid)->filter(user.subscriptions.isStaff!=true)->filter(click.dataTrackablePath~alphaville | header-nav:desktop | home-toggle |)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
   -
-    question: 4. CTA on Search in Header
+    question: 3. CTA on Search in Header
     name: cta search
-    query: cta:click->count(device.spoorId)->filter(click.dataTrackablePath~alphaville | header-top | search-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
+    query: cta:click->count(device.spoorId)->filter(user.subscriptions.isStaff!=true)->filter(click.dataTrackablePath~alphaville | header-top | search-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
   -
-    question: 5. CTA on Drawer Toggle (top)
+    question: 4. CTA on Drawer Toggle (top)
     name: cta drawer toggle top
-    query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~alphaville | header-top | drawer-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
+    query: cta:click->count(user.uuid)->filter(user.subscriptions.isStaff!=true)->filter(click.dataTrackablePath~alphaville | header-top | drawer-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
   -
-    question: 6. CTA on Drawer Toggle (sticky)
+    question: 5. CTA on Drawer Toggle (sticky)
     name: cta drawer toggle sticky
-    query: cta:click->count(user.uuid)->filter(click.dataTrackablePath~alphaville | header-sticky | drawer-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
+    query: cta:click->count(user.uuid)->filter(user.subscriptions.isStaff!=true)->filter(click.dataTrackablePath~alphaville | header-sticky | drawer-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
   -
-    question: 7. Page Views - top pages
+    question: 6. Page Views - top pages
     name: page views top pages
-    query: page:view->count(user.uuid)->group(page.location.pathname)->filter(context.app=alphaville)->filter(page.location.pathname~/)->top(10)->print(BarChart)
+    query: page:view->count(user.uuid)->filter(user.subscriptions.isStaff!=true)->group(page.location.pathname)->filter(context.app=alphaville)->filter(page.location.pathname~/)->top(10)->print(BarChart)
     printer: BarChart
     interval: false
     
