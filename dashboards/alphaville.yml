@@ -15,15 +15,20 @@ charts:
   -
     question: 3. CTA on Search in Header
     name: cta search
-    query: cta:click->count(device.spoorId)->filter(user.subscriptions.isStaff!=true)->filter(click.dataTrackablePath~alphaville | header-top | search-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
+    query: cta:click->count(user.uuid)->filter(user.subscriptions.isStaff!=true)->filter(click.dataTrackablePath~alphaville | header-top | search-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
   -
     question: 4. CTA on Drawer Toggle (top)
     name: cta drawer toggle top
-    query: cta:click->count(user.uuid)->filter(user.subscriptions.isStaff!=true)->filter(click.dataTrackablePath~alphaville | header-top | drawer-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
-  -
-    question: 5. CTA on Drawer Toggle (sticky)
-    name: cta drawer toggle sticky
-    query: cta:click->count(user.uuid)->filter(user.subscriptions.isStaff!=true)->filter(click.dataTrackablePath~alphaville | header-sticky | drawer-toggle)->group(click.dataTrackablePath)->interval(d)->print(LineChart)
+    query: "@sum(
+              cta:click
+                ->filter(click.dataTrackablePath~alphaville | header-top | search-toggle),
+              cta:click
+                ->filter(click.dataTrackablePath~alphaville | header-sticky | drawer-toggle)
+                )
+                ->count(user.uuid)
+                ->filter(user.subscriptions.isStaff!=true)
+                ->interval(d)
+                ->print(LineChart)"
   -
     question: 6. Page Views - top pages
     name: page views top pages
